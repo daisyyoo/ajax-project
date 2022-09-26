@@ -16,6 +16,7 @@ button {
   border: none;
   padding: 0;
   box-shadow: 0 5px 5px grey;
+  cursor: pointer;
 }
 
 h1 {
