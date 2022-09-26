@@ -1,0 +1,33 @@
+body {
+  font-family: "Roboto Slab", serif;
+  background-color: fffbf5;
+}
+
+.border-bottom {
+  border-bottom: 1px solid black;
+}
+
+.flag-button {
+  text-align: center;
+}
+
+button {
+  border-radius: 100%;
+  border: none;
+  padding: 0;
+  box-shadow: 0 5px 5px grey;
+}
+
+h1 {
+  font-family: "Rampart One", cursive;
+  text-transform: uppercase;
+  color: rgb(224, 33, 33);
+  font-size: 3rem;
+  padding: 0 2rem;
+  margin: 0;
+  letter-spacing: 5px;
+}
+
+h4 {
+  font-weight: 400;
+}
