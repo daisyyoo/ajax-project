@@ -24,6 +24,14 @@
   .col-sm-half {
     flex-basis: 50%;
   }
+
+  button {
+    width: 80%;
+  }
+
+  img {
+    width: 100%;
+  }
 }
 
 @media only screen and (min-width: 768px) {
