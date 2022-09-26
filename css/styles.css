@@ -20,13 +20,13 @@ button {
 }
 
 h1 {
-  font-family: "Rampart One", cursive;
+  font-family: "Porter Sans", sans-serif;
   text-transform: uppercase;
   color: rgb(224, 33, 33);
-  font-size: 3rem;
+  font-size: 2.5rem;
   padding: 0 2rem;
   margin: 0;
-  letter-spacing: 5px;
+  letter-spacing: 3px;
 }
 
 h4 {
