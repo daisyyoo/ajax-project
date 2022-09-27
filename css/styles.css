@@ -41,7 +41,7 @@ h4 {
   display: none;
 }
 
-.recipe-container {
+.recipe-box {
   margin: 0;
   margin-bottom: 1.5rem;
   border-bottom: 1px solid rgb(163, 161, 161);
@@ -56,4 +56,8 @@ h4 {
 
 .recipe-image {
   border: 1px solid rgb(235, 232, 232);
+}
+
+.recipe-title {
+  height: 45px;
 }
