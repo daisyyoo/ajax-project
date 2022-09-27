@@ -36,3 +36,11 @@ h4 {
 .img {
   width: 250px;
 }
+
+.hidden {
+  display: none;
+}
+
+.recipe-container {
+  margin: 0;
+}

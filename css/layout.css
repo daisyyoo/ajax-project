@@ -8,11 +8,26 @@
 }
 
 .center {
+  display: flex;
   justify-content: center;
+  text-align: center;
+}
+
+.col-direction {
+  flex-direction: column;
 }
 
 .flex-wrap {
+  display: flex;
   flex-wrap: wrap;
+}
+
+.recipe-container {
+  display: flex;
+}
+
+.recipe-box {
+  display: flex;
 }
 
 .col-lg-third,
