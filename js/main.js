@@ -12,14 +12,19 @@ function getCuisineData(name) {
     var recipeListObject = xhr.response;
     for (var i = 0; i < recipeListObject.results.length; i++) {
       var row = $bodyContainer.appendChild(document.createElement('div'));
-      row.className = 'recipe-container col-lg-third col-sm-half';
+      row.className = 'recipe-container center col-lg-third';
+
       var div = row.appendChild(document.createElement('div'));
-      div.className = 'recipe-box center col-direction';
+      div.className = 'center col-sm-full col-direction';
+
       var recipeButton = div.appendChild(document.createElement('button'));
-      // recipeButton.className = 'center';
+      recipeButton.className = 'recipe-button';
+
       var recipeImg = recipeButton.appendChild(document.createElement('img'));
-      var recipeTitle = div.appendChild(document.createElement('h5'));
+      recipeImg.className = 'recipe-image';
       recipeImg.setAttribute('src', recipeListObject.results[i].image);
+
+      var recipeTitle = div.appendChild(document.createElement('h4'));
       recipeTitle.textContent = recipeListObject.results[i].title;
     }
   });
