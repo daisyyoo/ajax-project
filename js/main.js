@@ -48,7 +48,35 @@ function getRecipeData(id) {
   xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=b35d81708b394cbfa180077a26661fe8');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    // console.log(xhr.response);
+    var recipeObject = xhr.response;
+    var selectedRecipeContainer = $bodyContainer.appendChild(document.createElement('div'));
+    selectedRecipeContainer.className = 'selected-recipe-container';
+
+    var recipeImgRow = selectedRecipeContainer.appendChild(document.createElement('div'));
+    recipeImgRow.className = 'row recipe-img-direction';
+
+    var recipeImage = recipeImgRow.appendChild(document.createElement('img'));
+    recipeImage.setAttribute('src', recipeObject.image);
+
+    var ingredientListContainer = recipeImgRow.appendChild(document.createElement('div'));
+
+    var ingredientLabel = ingredientListContainer.appendChild(document.createElement('h3'));
+    ingredientLabel.textContent = 'Ingredients';
+
+    var ingredientList = ingredientListContainer.appendChild(document.createElement('ul'));
+    for (var i = 0; i < recipeObject.extendedIngredients.length; i++) {
+      var ingredients = ingredientList.appendChild(document.createElement('li'));
+      ingredients.textContent = recipeObject.extendedIngredients[i].name;
+    }
+
+    var instructionsRow = selectedRecipeContainer.appendChild(document.createElement('div'));
+    for (var j = 0; j < recipeObject.analyzedInstructions[0].steps.length; j++) {
+      var stepNumber = instructionsRow.appendChild(document.createElement('h4'));
+      stepNumber.textContent = 'Step ' + recipeObject.analyzedInstructions[0].steps[j].number;
+      var instruction = stepNumber.appendChild(document.createElement('p'));
+      instruction.textContent = recipeObject.analyzedInstructions[0].steps[j].step;
+    }
+
   });
   xhr.send();
 }
