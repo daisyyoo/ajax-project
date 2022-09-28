@@ -11,7 +11,7 @@ body {
   text-align: center;
 }
 
-button {
+.flag-button-border {
   border-radius: 100%;
   border: none;
   padding: 0;
@@ -35,4 +35,29 @@ h4 {
 
 .img {
   width: 250px;
+}
+
+.hidden {
+  display: none;
+}
+
+.recipe-box {
+  margin: 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgb(163, 161, 161);
+  align-items: flex-start;
+}
+
+.recipe-button {
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.recipe-image {
+  border: 1px solid rgb(235, 232, 232);
+}
+
+.recipe-title {
+  height: 45px;
 }
