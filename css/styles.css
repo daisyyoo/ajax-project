@@ -5,6 +5,8 @@ body {
 
 .border-bottom {
   border-bottom: 1px solid black;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .flag-button {
@@ -75,7 +77,7 @@ h4 {
 }
 
 .instruction-container {
-  margin: 2rem 1rem;
+  margin: 1rem;
 }
 
 .img-ingredient-container {
@@ -86,16 +88,23 @@ h4 {
   width: 100%;
 }
 
-.ingredient-header {
+.ingredient-header,
+.instruction-header {
   border-bottom: 1px solid rgb(163, 161, 161);
 }
 
-.ingredient-label {
-  margin-top: 1.5rem;
+.ingredient-label,
+.instruction-label {
+  margin: 1rem 0;
+}
+
+.instruction-header {
   margin-bottom: 1rem;
 }
 
 .selected-recipe-image {
+  height: 550px;
+  margin: auto 0;
   margin-right: 3rem;
 }
 
@@ -116,9 +125,16 @@ li {
   border-radius: 5px;
   font-size: 0.7rem;
   color: rgb(114, 113, 113);
+  cursor: pointer;
 }
 
-.fa-solid {
+.fa-bars {
+  font-size: 1.5rem;
+  color: rgb(114, 113, 113);
+  cursor: pointer;
+}
+
+.fa-bookmark {
   margin-left: 5px;
   color: rgb(114, 113, 113);
 }
