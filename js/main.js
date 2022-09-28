@@ -53,12 +53,14 @@ function getRecipeData(id) {
     selectedRecipeContainer.className = 'selected-recipe-container';
 
     var recipeImgRow = selectedRecipeContainer.appendChild(document.createElement('div'));
-    recipeImgRow.className = 'row recipe-img-direction';
+    recipeImgRow.className = 'row recipe-img-direction img-ingredient-container';
 
     var recipeImage = recipeImgRow.appendChild(document.createElement('img'));
     recipeImage.setAttribute('src', recipeObject.image);
+    recipeImage.className = 'selected-recipe-image col-lg-half col-sm-full';
 
     var ingredientListContainer = recipeImgRow.appendChild(document.createElement('div'));
+    ingredientListContainer.className = 'ingredient-list col-lg-half col-sm-full';
 
     var ingredientLabel = ingredientListContainer.appendChild(document.createElement('h3'));
     ingredientLabel.textContent = 'Ingredients';
@@ -66,15 +68,20 @@ function getRecipeData(id) {
     var ingredientList = ingredientListContainer.appendChild(document.createElement('ul'));
     for (var i = 0; i < recipeObject.extendedIngredients.length; i++) {
       var ingredients = ingredientList.appendChild(document.createElement('li'));
-      ingredients.textContent = recipeObject.extendedIngredients[i].name;
+      var lowercaseIngredient = recipeObject.extendedIngredients[i].name;
+      var capIngredient = lowercaseIngredient.charAt(0).toUpperCase() + lowercaseIngredient.slice(1);
+      ingredients.textContent = capIngredient;
     }
 
     var instructionsRow = selectedRecipeContainer.appendChild(document.createElement('div'));
+    instructionsRow.className = 'row instruction-container col-direction';
     for (var j = 0; j < recipeObject.analyzedInstructions[0].steps.length; j++) {
       var stepNumber = instructionsRow.appendChild(document.createElement('h4'));
+      stepNumber.className = 'step-number';
       stepNumber.textContent = 'Step ' + recipeObject.analyzedInstructions[0].steps[j].number;
       var instruction = stepNumber.appendChild(document.createElement('p'));
       instruction.textContent = recipeObject.analyzedInstructions[0].steps[j].step;
+      instruction.className = 'instruction';
     }
 
   });

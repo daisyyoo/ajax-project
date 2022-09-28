@@ -61,3 +61,33 @@ h4 {
 .recipe-title {
   height: 45px;
 }
+
+.step-number {
+  font-weight: 600;
+  margin: 0;
+}
+
+.instruction {
+  font-weight: 400;
+}
+
+.instruction-container {
+  margin: 2rem 1rem;
+}
+
+.img-ingredient-container {
+  margin: 0 1rem;
+}
+
+.selected-recipe-image {
+  margin-right: 3rem;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  line-height: 2rem;
+}
