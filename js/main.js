@@ -68,9 +68,10 @@ function getRecipeData(id) {
     var ingredientList = ingredientListContainer.appendChild(document.createElement('ul'));
     for (var i = 0; i < recipeObject.extendedIngredients.length; i++) {
       var ingredients = ingredientList.appendChild(document.createElement('li'));
-      var lowercaseIngredient = recipeObject.extendedIngredients[i].name;
-      var capIngredient = lowercaseIngredient.charAt(0).toUpperCase() + lowercaseIngredient.slice(1);
-      ingredients.textContent = capIngredient;
+      var ingredientName = recipeObject.extendedIngredients[i].name;
+      var amount = recipeObject.extendedIngredients[i].amount;
+      var unit = recipeObject.extendedIngredients[i].unit;
+      ingredients.textContent = amount + ' ' + unit + ' ' + ingredientName;
     }
 
     var instructionsRow = selectedRecipeContainer.appendChild(document.createElement('div'));
