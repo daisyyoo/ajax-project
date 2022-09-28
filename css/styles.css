@@ -36,8 +36,8 @@ h4 {
   font-weight: 400;
 }
 
-.img {
-  width: 250px;
+.flag {
+  object-fit: contain;
 }
 
 .hidden {
@@ -61,10 +61,12 @@ h4 {
 .selected-recipe-image {
   border-radius: 5px;
   box-shadow: 0 3px 0 rgb(226, 225, 225);
+  object-fit: contain;
 }
 
 .recipe-title {
   height: 45px;
+  padding: 0 1rem;
 }
 
 .step-number {
