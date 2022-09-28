@@ -35,6 +35,12 @@
   flex-direction: column;
 }
 
+.ingredient-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 @media only screen and (min-width: 576px) {
   .col-sm-half {
     flex-basis: 50%;
@@ -64,7 +70,7 @@
   }
 
   .col-lg-half {
-    flex-basis: 50%;
+    width: 50%;
   }
 
   button {

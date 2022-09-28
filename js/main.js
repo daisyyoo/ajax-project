@@ -62,9 +62,19 @@ function getRecipeData(id) {
     var ingredientListContainer = recipeImgRow.appendChild(document.createElement('div'));
     ingredientListContainer.className = 'ingredient-list col-lg-half col-sm-full';
 
-    var ingredientLabel = ingredientListContainer.appendChild(document.createElement('h3'));
+    var ingredientHeader = ingredientListContainer.appendChild(document.createElement('div'));
+    ingredientHeader.className = 'ingredient-header';
+
+    var ingredientLabel = ingredientHeader.appendChild(document.createElement('h3'));
     ingredientLabel.className = 'ingredient-label';
     ingredientLabel.textContent = 'Ingredients';
+
+    var saveRecipeButton = ingredientHeader.appendChild(document.createElement('button'));
+    saveRecipeButton.className = 'save-recipe-button';
+    saveRecipeButton.textContent = 'SAVE RECIPE';
+
+    var bookmarkIcon = saveRecipeButton.appendChild(document.createElement('i'));
+    bookmarkIcon.className = 'fa-solid fa-bookmark';
 
     var ingredientList = ingredientListContainer.appendChild(document.createElement('ul'));
     for (var i = 0; i < recipeObject.extendedIngredients.length; i++) {

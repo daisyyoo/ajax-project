@@ -23,7 +23,7 @@ body {
 h1 {
   font-family: "Porter Sans", sans-serif;
   text-transform: uppercase;
-  color: rgb(224, 33, 33);
+  color: rgb(227, 65, 65);
   font-size: 2.5rem;
   padding: 0 2rem;
   margin: 0;
@@ -82,9 +82,17 @@ h4 {
   margin: 0 1rem;
 }
 
-.ingredient-label {
-  padding-bottom: 0.5rem;
+.ingredient-list {
+  width: 100%;
+}
+
+.ingredient-header {
   border-bottom: 1px solid rgb(163, 161, 161);
+}
+
+.ingredient-label {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .selected-recipe-image {
@@ -98,4 +106,29 @@ ul {
 li {
   list-style: none;
   line-height: 2rem;
+}
+
+.save-recipe-button {
+  background-color: #f8d7c2;
+  width: 8rem;
+  height: 2rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.7rem;
+  color: rgb(114, 113, 113);
+}
+
+.fa-solid {
+  margin-left: 5px;
+  color: rgb(114, 113, 113);
+}
+
+.save-recipe-button:active {
+  background-color: rgb(247, 135, 135);
+  color: white;
+}
+
+.save-recipe-button:active i {
+  background-color: rgb(247, 135, 135);
+  color: white;
 }
