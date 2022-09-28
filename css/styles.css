@@ -5,6 +5,8 @@ body {
 
 .border-bottom {
   border-bottom: 1px solid black;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .flag-button {
@@ -23,7 +25,7 @@ body {
 h1 {
   font-family: "Porter Sans", sans-serif;
   text-transform: uppercase;
-  color: rgb(224, 33, 33);
+  color: rgb(227, 65, 65);
   font-size: 2.5rem;
   padding: 0 2rem;
   margin: 0;
@@ -34,8 +36,8 @@ h4 {
   font-weight: 400;
 }
 
-.img {
-  width: 250px;
+.flag {
+  object-fit: contain;
 }
 
 .hidden {
@@ -59,10 +61,12 @@ h4 {
 .selected-recipe-image {
   border-radius: 5px;
   box-shadow: 0 3px 0 rgb(226, 225, 225);
+  object-fit: contain;
 }
 
 .recipe-title {
   height: 45px;
+  padding: 0 1rem;
 }
 
 .step-number {
@@ -75,19 +79,34 @@ h4 {
 }
 
 .instruction-container {
-  margin: 2rem 1rem;
+  margin: 1rem;
 }
 
 .img-ingredient-container {
   margin: 0 1rem;
 }
 
-.ingredient-label {
-  padding-bottom: 0.5rem;
+.ingredient-list {
+  width: 100%;
+}
+
+.ingredient-header,
+.instruction-header {
   border-bottom: 1px solid rgb(163, 161, 161);
 }
 
+.ingredient-label,
+.instruction-label {
+  margin: 1rem 0;
+}
+
+.instruction-header {
+  margin-bottom: 1rem;
+}
+
 .selected-recipe-image {
+  height: 550px;
+  margin: auto 0;
   margin-right: 3rem;
 }
 
@@ -98,4 +117,36 @@ ul {
 li {
   list-style: none;
   line-height: 2rem;
+}
+
+.save-recipe-button {
+  background-color: #f8d7c2;
+  width: 8rem;
+  height: 2rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.7rem;
+  color: rgb(114, 113, 113);
+  cursor: pointer;
+}
+
+.fa-bars {
+  font-size: 1.5rem;
+  color: rgb(114, 113, 113);
+  cursor: pointer;
+}
+
+.fa-bookmark {
+  margin-left: 5px;
+  color: rgb(114, 113, 113);
+}
+
+.save-recipe-button:active {
+  background-color: rgb(247, 135, 135);
+  color: white;
+}
+
+.save-recipe-button:active i {
+  background-color: rgb(247, 135, 135);
+  color: white;
 }

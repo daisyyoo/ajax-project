@@ -7,6 +7,10 @@
   display: flex;
 }
 
+.body-container {
+  justify-content: center;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -33,6 +37,12 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+.ingredient-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 @media only screen and (min-width: 576px) {
@@ -64,7 +74,7 @@
   }
 
   .col-lg-half {
-    flex-basis: 50%;
+    width: 50%;
   }
 
   button {
