@@ -48,7 +48,44 @@ function getRecipeData(id) {
   xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=b35d81708b394cbfa180077a26661fe8');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    // console.log(xhr.response);
+    var recipeObject = xhr.response;
+    var selectedRecipeContainer = $bodyContainer.appendChild(document.createElement('div'));
+    selectedRecipeContainer.className = 'selected-recipe-container';
+
+    var recipeImgRow = selectedRecipeContainer.appendChild(document.createElement('div'));
+    recipeImgRow.className = 'row recipe-img-direction img-ingredient-container';
+
+    var recipeImage = recipeImgRow.appendChild(document.createElement('img'));
+    recipeImage.setAttribute('src', recipeObject.image);
+    recipeImage.className = 'selected-recipe-image col-lg-half col-sm-full';
+
+    var ingredientListContainer = recipeImgRow.appendChild(document.createElement('div'));
+    ingredientListContainer.className = 'ingredient-list col-lg-half col-sm-full';
+
+    var ingredientLabel = ingredientListContainer.appendChild(document.createElement('h3'));
+    ingredientLabel.className = 'ingredient-label';
+    ingredientLabel.textContent = 'Ingredients';
+
+    var ingredientList = ingredientListContainer.appendChild(document.createElement('ul'));
+    for (var i = 0; i < recipeObject.extendedIngredients.length; i++) {
+      var ingredients = ingredientList.appendChild(document.createElement('li'));
+      var ingredientName = recipeObject.extendedIngredients[i].name;
+      var amount = recipeObject.extendedIngredients[i].amount;
+      var unit = recipeObject.extendedIngredients[i].unit;
+      ingredients.textContent = amount + ' ' + unit + ' ' + ingredientName;
+    }
+
+    var instructionsRow = selectedRecipeContainer.appendChild(document.createElement('div'));
+    instructionsRow.className = 'row instruction-container col-direction';
+    for (var j = 0; j < recipeObject.analyzedInstructions[0].steps.length; j++) {
+      var stepNumber = instructionsRow.appendChild(document.createElement('h4'));
+      stepNumber.className = 'step-number';
+      stepNumber.textContent = 'Step ' + recipeObject.analyzedInstructions[0].steps[j].number;
+      var instruction = stepNumber.appendChild(document.createElement('p'));
+      instruction.textContent = recipeObject.analyzedInstructions[0].steps[j].step;
+      instruction.className = 'instruction';
+    }
+
   });
   xhr.send();
 }

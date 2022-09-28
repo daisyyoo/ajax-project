@@ -29,6 +29,12 @@
   flex-basis: 100%;
 }
 
+.selected-recipe-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 @media only screen and (min-width: 576px) {
   .col-sm-half {
     flex-basis: 50%;
@@ -45,6 +51,11 @@
   img {
     width: 100%;
   }
+
+  .recipe-img-direction {
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 @media only screen and (min-width: 768px) {
@@ -52,11 +63,19 @@
     flex-basis: calc(100%/3);
   }
 
+  .col-lg-half {
+    flex-basis: 50%;
+  }
+
   button {
-    width: 70%;
+    width: 90%;
   }
 
   img {
     width: 100%;
+  }
+
+  .recipe-img-direction {
+    flex-direction: row;
   }
 }

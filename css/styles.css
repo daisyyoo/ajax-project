@@ -9,6 +9,7 @@ body {
 
 .flag-button {
   text-align: center;
+  padding: 1rem;
 }
 
 .flag-button-border {
@@ -54,10 +55,47 @@ h4 {
   cursor: pointer;
 }
 
-.recipe-image {
-  border: 1px solid rgb(235, 232, 232);
+.recipe-image,
+.selected-recipe-image {
+  border-radius: 5px;
+  box-shadow: 0 3px 0 rgb(226, 225, 225);
 }
 
 .recipe-title {
   height: 45px;
+}
+
+.step-number {
+  font-weight: 600;
+  margin: 0;
+}
+
+.instruction {
+  font-weight: 400;
+}
+
+.instruction-container {
+  margin: 2rem 1rem;
+}
+
+.img-ingredient-container {
+  margin: 0 1rem;
+}
+
+.ingredient-label {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgb(163, 161, 161);
+}
+
+.selected-recipe-image {
+  margin-right: 3rem;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  line-height: 2rem;
 }
