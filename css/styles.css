@@ -9,6 +9,7 @@ body {
 
 .flag-button {
   text-align: center;
+  padding: 1rem;
 }
 
 .flag-button-border {
@@ -54,8 +55,10 @@ h4 {
   cursor: pointer;
 }
 
-.recipe-image {
-  border: 1px solid rgb(235, 232, 232);
+.recipe-image,
+.selected-recipe-image {
+  border-radius: 5px;
+  box-shadow: 0 3px 0 rgb(226, 225, 225);
 }
 
 .recipe-title {
@@ -77,6 +80,11 @@ h4 {
 
 .img-ingredient-container {
   margin: 0 1rem;
+}
+
+.ingredient-label {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgb(163, 161, 161);
 }
 
 .selected-recipe-image {

@@ -63,6 +63,7 @@ function getRecipeData(id) {
     ingredientListContainer.className = 'ingredient-list col-lg-half col-sm-full';
 
     var ingredientLabel = ingredientListContainer.appendChild(document.createElement('h3'));
+    ingredientLabel.className = 'ingredient-label';
     ingredientLabel.textContent = 'Ingredients';
 
     var ingredientList = ingredientListContainer.appendChild(document.createElement('ul'));
