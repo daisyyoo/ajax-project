@@ -8,17 +8,18 @@ $bodyContainer.addEventListener('click', cuisinePage);
 $bodyContainer.addEventListener('click', recipePage);
 
 function getCuisineData(name) {
+  $bodyContainer.setAttribute('data-view', 'cuisinePage');
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.spoonacular.com/recipes/complexSearch?apiKey=b35d81708b394cbfa180077a26661fe8&cuisine=' + name);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     var recipeListObject = xhr.response;
-    var recipeContainer = $bodyContainer.appendChild(document.createElement('div'));
-    recipeContainer.className = 'recipe-container flex-wrap center';
-    recipeContainer.setAttribute('id', 'recipe-container');
+    var cuisineContainer = $bodyContainer.appendChild(document.createElement('div'));
+    cuisineContainer.className = 'cuisine-container flex-wrap center';
+    cuisineContainer.setAttribute('id', 'cuisine-container');
 
     for (var i = 0; i < recipeListObject.results.length; i++) {
-      var recipeBox = recipeContainer.appendChild(document.createElement('div'));
+      var recipeBox = cuisineContainer.appendChild(document.createElement('div'));
       recipeBox.className = 'recipe-box col-sm-full col-lg-third col-direction';
 
       var recipeButton = recipeBox.appendChild(document.createElement('button'));
@@ -42,8 +43,8 @@ function cuisinePage(event) {
     var name = event.target.getAttribute('data-id');
     $header.textContent = name + ' Dishes';
     $flagsPage.className = 'hidden';
-    data.view = 'cuisinePage';
     getCuisineData(name);
+    data.view = $bodyContainer.getAttribute('data-view');
   }
 }
 
@@ -131,14 +132,15 @@ function recipePage(event) {
   if (event.target.matches('.recipe-image')) {
     var id = event.target.getAttribute('data-id');
     $header.textContent = event.target.closest('div').textContent;
-    var $recipePage = document.querySelector('.recipe-container');
-    $recipePage.className = 'hidden';
-    data.view = 'recipePage';
+    var $cuisinePage = document.querySelector('.cuisine-container');
+    $cuisinePage.className = 'hidden';
     getRecipeData(id);
+    data.view = $bodyContainer.getAttribute('data-view');
   }
 }
 
 function myRecipeBoxPage(recipeID) {
+  $bodyContainer.setAttribute('data-view', 'savedRecipePage');
   var savedRecipeContainer = $bodyContainer.appendChild(document.createElement('div'));
   savedRecipeContainer.className = 'saved-recipe-container flex-wrap center hidden';
   savedRecipeContainer.setAttribute('id', 'saved-recipe-container');
@@ -162,27 +164,34 @@ function myRecipeBoxPage(recipeID) {
 }
 document.addEventListener('DOMContentLoaded', myRecipeBoxPage);
 
-function showPage(name) {
-  var $savedRecipePage = document.querySelector('#saved-recipe-container');
-  var $recipePage = document.querySelector('#recipe-container');
-  var $selectedRecipePage = document.querySelector('#selected-recipe-container');
-  if (event.target.getAttribute('data-view') === 'flagsPage') {
+function showPage(event) {
+  if (event.target.getAttribute('data-view') !== data.view) {
+    data.view = event.target.getAttribute('data-view');
     modalMenu();
-    $flagsPage.className = 'flags-page-container row center flex-wrap';
-    data.view = 'flagsPage';
-    $header.textContent = 'What are you craving today?';
-    $savedRecipePage.className = 'hidden';
-    $recipePage.className = 'hidden';
-    $selectedRecipePage.className = 'hidden';
+    dataView();
+  }
+}
 
-  } else if (event.target.getAttribute('data-view') === 'myRecipeBoxPage') {
-    modalMenu();
-    $savedRecipePage.className = 'saved-recipe-container flex-wrap center';
-    data.view = 'myRecipeBoxPage';
+function dataView(name) {
+  var $cuisinePage = document.querySelector('#cuisine-container');
+  var $selectedRecipePage = document.querySelector('#selected-recipe-container');
+  var $savedRecipePage = document.querySelector('#saved-recipe-container');
+  if (data.view === 'flagsPage') {
+    $header.textContent = 'What are you craving today?';
+    $flagsPage.className = 'flags-page-container row center flex-wrap';
+    $savedRecipePage.className = 'hidden';
+    if (!$cuisinePage.matches('hidden') || !$selectedRecipePage.matches('hidden')) {
+      $cuisinePage.className = 'hidden';
+      $selectedRecipePage.className = 'hidden';
+    }
+  } else if (data.view === 'savedRecipePage') {
     $header.textContent = 'My Recipe Box';
+    $savedRecipePage.className = 'saved-recipe-container flex-wrap center';
     $flagsPage.className = 'hidden';
-    $recipePage.className = 'hidden';
-    $selectedRecipePage.className = 'hidden';
+    if (!$cuisinePage.matches('hidden') || !$selectedRecipePage.matches('hidden')) {
+      $cuisinePage.className = 'hidden';
+      $selectedRecipePage.className = 'hidden';
+    }
   }
 }
 
@@ -208,3 +217,15 @@ function modalMenu(event) {
     modalOpen = false;
   }
 }
+
+// } else if (data.view === 'cuisinePage') {
+//   debugger;
+//   $cuisinePage.className = 'cuisine-container flex-wrap center';
+//   $flagsPage.className = 'hidden';
+//   $savedRecipePage.className = 'hidden';
+//   $selectedRecipePage.className = 'hidden';
+// } else if (data.view === 'recipePage') {
+//   $selectedRecipePage.className = 'selected-recipe-container';
+//   $flagsPage.className = 'hidden';
+//   $savedRecipePage.className = 'hidden';
+//   $cuisinePage.className = 'hidden';
