@@ -133,46 +133,52 @@ function recipePage(event) {
   }
 }
 
-// function myRecipeBoxPage(recipeID) {
-//   $bodyContainer.setAttribute('recipeBox-view', 'myRecipeBoxPage');
-//   for (var i = 0; i < data.recipes.length; i++) {
-//     var xhr = new XMLHttpRequest();
-//     xhr.open('GET', 'https://api.spoonacular.com/recipes/' + data.recipes[i].recipeID + '/information?apiKey=8036dee798704bc5b7a94e9409fbfa26');
-//     xhr.responseType = 'json';
-//     xhr.addEventListener('load', function () {
-//       var savedRecipeObject = xhr.response;
-//       var recipeContainer = $bodyContainer.appendChild(document.createElement('div'));
-//       recipeContainer.className = 'recipe-container flex-wrap center';
+function myRecipeBoxPage(recipeID) {
+  $bodyContainer.setAttribute('recipeBox-view', 'myRecipeBoxPage');
+  for (var i = 0; i < data.recipes.length; i++) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://api.spoonacular.com/recipes/' + data.recipes[i].recipeID + '/information?apiKey=8036dee798704bc5b7a94e9409fbfa26');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', function () {
+      var savedRecipeObject = xhr.response;
+      var recipeContainer = $bodyContainer.appendChild(document.createElement('div'));
+      recipeContainer.className = 'recipe-container flex-wrap center';
 
-//       var recipeBox = recipeContainer.appendChild(document.createElement('div'));
-//       recipeBox.className = 'recipe-box col-sm-full col-lg-third col-direction';
+      var recipeBox = recipeContainer.appendChild(document.createElement('div'));
+      recipeBox.className = 'recipe-box col-sm-full col-lg-third col-direction';
 
-//       var recipeButton = recipeBox.appendChild(document.createElement('button'));
-//       recipeButton.className = 'recipe-button';
+      var recipeButton = recipeBox.appendChild(document.createElement('button'));
+      recipeButton.className = 'recipe-button';
 
-//       var recipeImg = recipeButton.appendChild(document.createElement('img'));
-//       recipeImg.className = 'recipe-image';
-//       recipeImg.setAttribute('src', savedRecipeObject.image);
-//       recipeImg.setAttribute('data-id', data.recipes[i].recipeID);
+      var recipeImg = recipeButton.appendChild(document.createElement('img'));
+      recipeImg.className = 'recipe-image';
+      recipeImg.setAttribute('src', savedRecipeObject.image);
+      recipeImg.setAttribute('data-id', data.recipes[i].recipeID);
 
-//       var recipeTitle = recipeBox.appendChild(document.createElement('h4'));
-//       recipeTitle.className = 'recipe-title center';
-//       recipeTitle.textContent = savedRecipeObject.title;
-//     });
-//     xhr.send();
-//   }
-// }
+      var recipeTitle = recipeBox.appendChild(document.createElement('h4'));
+      recipeTitle.className = 'recipe-title center';
+      recipeTitle.textContent = savedRecipeObject.title;
+    });
+    xhr.send();
+  }
+}
 
-// function showPage(name) {
-//   if (event.target.getAttribute('data-view') === 'flagsPage') {
-//     var $recipePage = document.querySelector('.recipe-container');
-//     $recipePage.className = 'hidden';
-//     data.view = 'flagsPage';
-//     $flagsPage.className = 'row center flex-wrap flags-page';
-//   } else if (event.target.getAttribute('data-view') === 'myRecipeBoxPage') {
-//     $flagsPage.className = 'hidden';
-//     data.view = 'myRecipeBoxPage';
-//     $header.textContent = 'My Recipe Box';
-//     myRecipeBoxPage();
-//   }
-// }
+function showPage(name) {
+  if (event.target.getAttribute('data-view') === 'flagsPage') {
+    var $recipePage = document.querySelector('.recipe-container');
+    $recipePage.className = 'hidden';
+    data.view = 'flagsPage';
+    $flagsPage.className = 'row center flex-wrap flags-page';
+  } else if (event.target.getAttribute('data-view') === 'myRecipeBoxPage') {
+    $flagsPage.className = 'hidden';
+    data.view = 'myRecipeBoxPage';
+    $header.textContent = 'My Recipe Box';
+    myRecipeBoxPage();
+  }
+}
+
+var $flagsPageButton = document.querySelector('#flagsPageButton');
+var $myRecipePageButton = document.querySelector('#myRecipePageButton');
+
+$flagsPageButton.addEventListener('click', showPage);
+$myRecipePageButton.addEventListener('click', showPage);
