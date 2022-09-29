@@ -2,20 +2,20 @@
 
 var $bodyContainer = document.querySelector('.body-container');
 var $header = document.querySelector('.header');
-var $flagsPage = document.querySelector('.flags-page');
+var $flagsPage = document.querySelector('#flags-page-container');
 
 $bodyContainer.addEventListener('click', cuisinePage);
 $bodyContainer.addEventListener('click', recipePage);
 
 function getCuisineData(name) {
-  $bodyContainer.setAttribute('recipeBox-view', 'cuisinePage');
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.spoonacular.com/recipes/complexSearch?apiKey=8036dee798704bc5b7a94e9409fbfa26&cuisine=' + name);
+  xhr.open('GET', 'https://api.spoonacular.com/recipes/complexSearch?apiKey=b35d81708b394cbfa180077a26661fe8&cuisine=' + name);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     var recipeListObject = xhr.response;
     var recipeContainer = $bodyContainer.appendChild(document.createElement('div'));
     recipeContainer.className = 'recipe-container flex-wrap center';
+    recipeContainer.setAttribute('id', 'recipe-container');
 
     for (var i = 0; i < recipeListObject.results.length; i++) {
       var recipeBox = recipeContainer.appendChild(document.createElement('div'));
@@ -50,12 +50,13 @@ function cuisinePage(event) {
 function getRecipeData(id) {
   $bodyContainer.setAttribute('data-view', 'recipePage');
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=8036dee798704bc5b7a94e9409fbfa26');
+  xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=b35d81708b394cbfa180077a26661fe8');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     var recipeObject = xhr.response;
     var selectedRecipeContainer = $bodyContainer.appendChild(document.createElement('form'));
     selectedRecipeContainer.className = 'selected-recipe-container';
+    selectedRecipeContainer.setAttribute('id', 'selected-recipe-container');
     selectedRecipeContainer.setAttribute('data-id', id);
 
     var recipeImgRow = selectedRecipeContainer.appendChild(document.createElement('div'));
@@ -113,8 +114,12 @@ function getRecipeData(id) {
       event.preventDefault();
       var $selectedRecipePage = document.querySelector('.selected-recipe-container');
       var recipeId = $selectedRecipePage.getAttribute('data-id');
+      var recipeImage = document.querySelector('.selected-recipe-image');
+      var recipeTitle = document.querySelector('.header');
       var recipeInfo = {
-        recipeID: recipeId
+        recipeID: recipeId,
+        image: recipeImage.getAttribute('src'),
+        title: recipeTitle.textContent
       };
       data.recipes.push(recipeInfo);
     });
@@ -134,48 +139,50 @@ function recipePage(event) {
 }
 
 function myRecipeBoxPage(recipeID) {
-  $bodyContainer.setAttribute('recipeBox-view', 'myRecipeBoxPage');
+  var savedRecipeContainer = $bodyContainer.appendChild(document.createElement('div'));
+  savedRecipeContainer.className = 'saved-recipe-container flex-wrap center hidden';
+  savedRecipeContainer.setAttribute('id', 'saved-recipe-container');
+
   for (var i = 0; i < data.recipes.length; i++) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://api.spoonacular.com/recipes/' + data.recipes[i].recipeID + '/information?apiKey=8036dee798704bc5b7a94e9409fbfa26');
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', function () {
-      var savedRecipeObject = xhr.response;
-      var recipeContainer = $bodyContainer.appendChild(document.createElement('div'));
-      recipeContainer.className = 'recipe-container flex-wrap center';
+    var recipeBox = savedRecipeContainer.appendChild(document.createElement('div'));
+    recipeBox.className = 'recipe-box col-sm-full col-lg-third col-direction';
 
-      var recipeBox = recipeContainer.appendChild(document.createElement('div'));
-      recipeBox.className = 'recipe-box col-sm-full col-lg-third col-direction';
+    var recipeButton = recipeBox.appendChild(document.createElement('button'));
+    recipeButton.className = 'recipe-button';
 
-      var recipeButton = recipeBox.appendChild(document.createElement('button'));
-      recipeButton.className = 'recipe-button';
+    var recipeImg = recipeButton.appendChild(document.createElement('img'));
+    recipeImg.className = 'recipe-image';
+    recipeImg.setAttribute('src', data.recipes[i].image);
+    recipeImg.setAttribute('data-id', data.recipes[i].recipeID);
 
-      var recipeImg = recipeButton.appendChild(document.createElement('img'));
-      recipeImg.className = 'recipe-image';
-      recipeImg.setAttribute('src', savedRecipeObject.image);
-      recipeImg.setAttribute('data-id', data.recipes[i].recipeID);
-
-      var recipeTitle = recipeBox.appendChild(document.createElement('h4'));
-      recipeTitle.className = 'recipe-title center';
-      recipeTitle.textContent = savedRecipeObject.title;
-    });
-    xhr.send();
+    var recipeTitle = recipeBox.appendChild(document.createElement('h4'));
+    recipeTitle.className = 'recipe-title center';
+    recipeTitle.textContent = data.recipes[i].title;
   }
 }
+document.addEventListener('DOMContentLoaded', myRecipeBoxPage);
 
 function showPage(name) {
+  var $savedRecipePage = document.querySelector('#saved-recipe-container');
+  var $recipePage = document.querySelector('#recipe-container');
+  var $selectedRecipePage = document.querySelector('#selected-recipe-container');
   if (event.target.getAttribute('data-view') === 'flagsPage') {
-    var $recipePage = document.querySelector('.recipe-container');
-    $recipePage.className = 'hidden';
+    modalMenu();
+    $flagsPage.className = 'flags-page-container row center flex-wrap';
     data.view = 'flagsPage';
-    $flagsPage.className = 'row center flex-wrap flags-page';
-    $modalPage.className = 'modal-background hidden';
+    $header.textContent = 'What are you craving today?';
+    $savedRecipePage.className = 'hidden';
+    $recipePage.className = 'hidden';
+    $selectedRecipePage.className = 'hidden';
+
   } else if (event.target.getAttribute('data-view') === 'myRecipeBoxPage') {
-    $flagsPage.className = 'hidden';
+    modalMenu();
+    $savedRecipePage.className = 'saved-recipe-container flex-wrap center';
     data.view = 'myRecipeBoxPage';
     $header.textContent = 'My Recipe Box';
-    $modalPage.className = 'modal-background hidden';
-    myRecipeBoxPage();
+    $flagsPage.className = 'hidden';
+    $recipePage.className = 'hidden';
+    $selectedRecipePage.className = 'hidden';
   }
 }
 
