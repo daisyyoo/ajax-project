@@ -183,10 +183,12 @@ var $flagsPageButton = document.querySelector('#flagsPageButton');
 var $myRecipePageButton = document.querySelector('#myRecipePageButton');
 var $menuButton = document.querySelector('.menu-button');
 var $modalPage = document.querySelector('.modal-background');
+var $modalCloseButton = document.querySelector('.modal-close-button');
 
 $flagsPageButton.addEventListener('click', showPage);
 $myRecipePageButton.addEventListener('click', showPage);
 $menuButton.addEventListener('click', modalMenu);
+$modalCloseButton.addEventListener('click', modalMenu);
 
 var modalOpen = false;
 

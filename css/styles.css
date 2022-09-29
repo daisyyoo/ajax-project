@@ -137,11 +137,16 @@ li {
   color: rgb(114, 113, 113);
 }
 
-.menu-button {
+.menu-button,
+.modal-close-button {
   background-color: #fffbf5;
   border: none;
   cursor: pointer;
   width: 2rem;
+}
+
+.modal-close-button {
+  width: 3rem;
 }
 
 .fa-xmark {
@@ -182,6 +187,7 @@ li {
 .modal-header {
   display: flex;
   justify-content: flex-end;
+  padding: 0.25rem 1.3rem;
 }
 
 .modal-button {
