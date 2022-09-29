@@ -41,7 +41,7 @@ h4 {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .recipe-box {
@@ -135,7 +135,13 @@ li {
 .fa-xmark {
   font-size: 1.5rem;
   color: rgb(114, 113, 113);
+}
+
+.menu-button {
+  background-color: #fffbf5;
+  border: none;
   cursor: pointer;
+  width: 2rem;
 }
 
 .fa-xmark {

@@ -169,16 +169,33 @@ function showPage(name) {
     $recipePage.className = 'hidden';
     data.view = 'flagsPage';
     $flagsPage.className = 'row center flex-wrap flags-page';
+    $modalPage.className = 'modal-background hidden';
   } else if (event.target.getAttribute('data-view') === 'myRecipeBoxPage') {
     $flagsPage.className = 'hidden';
     data.view = 'myRecipeBoxPage';
     $header.textContent = 'My Recipe Box';
+    $modalPage.className = 'modal-background hidden';
     myRecipeBoxPage();
   }
 }
 
 var $flagsPageButton = document.querySelector('#flagsPageButton');
 var $myRecipePageButton = document.querySelector('#myRecipePageButton');
+var $menuButton = document.querySelector('.menu-button');
+var $modalPage = document.querySelector('.modal-background');
 
 $flagsPageButton.addEventListener('click', showPage);
 $myRecipePageButton.addEventListener('click', showPage);
+$menuButton.addEventListener('click', modalMenu);
+
+var modalOpen = false;
+
+function modalMenu(event) {
+  if (modalOpen === false) {
+    $modalPage.className = 'modal-background';
+    modalOpen = true;
+  } else {
+    $modalPage.className = 'modal-background hidden';
+    modalOpen = false;
+  }
+}
