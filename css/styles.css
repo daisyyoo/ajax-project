@@ -3,7 +3,11 @@ body {
   background-color: #fffbf5;
 }
 
-.border-bottom {
+button {
+  cursor: pointer;
+}
+
+.border-bottom-align {
   border-bottom: 1px solid black;
   justify-content: space-between;
   align-items: center;
@@ -19,16 +23,14 @@ body {
   border: none;
   padding: 0;
   box-shadow: 0 5px 5px grey;
-  cursor: pointer;
 }
 
 h1 {
   font-family: "Porter Sans", sans-serif;
   text-transform: uppercase;
   color: rgb(227, 65, 65);
-  font-size: 2.5rem;
-  padding: 0 2rem;
-  margin: 0;
+  font-size: 1.3rem;
+  margin: 0.5rem 0;
   letter-spacing: 3px;
 }
 
@@ -54,7 +56,6 @@ h4 {
 .recipe-button {
   border: none;
   padding: 0;
-  cursor: pointer;
 }
 
 .recipe-image,
@@ -76,14 +77,6 @@ h4 {
 
 .instruction {
   font-weight: 400;
-}
-
-.instruction-container {
-  margin: 1rem;
-}
-
-.img-ingredient-container {
-  margin: 0 1rem;
 }
 
 .ingredient-list {
@@ -122,13 +115,13 @@ li {
 
 .save-recipe-button {
   background-color: #f8d7c2;
-  width: 8rem;
-  height: 2rem;
+  padding: 0;
+  width: 6rem;
+  height: 1.5rem;
   border: none;
   border-radius: 5px;
-  font-size: 0.7rem;
+  font-size: 0.55rem;
   color: rgb(114, 113, 113);
-  cursor: pointer;
 }
 
 .fa-bars,
@@ -141,7 +134,6 @@ li {
 .modal-close-button {
   background-color: #fffbf5;
   border: none;
-  cursor: pointer;
   width: 2rem;
 }
 
@@ -196,9 +188,25 @@ li {
   padding: 1rem 0;
   border: none;
   font-size: 1rem;
-  cursor: pointer;
 }
 
 .modal-selection {
   margin: 0 2rem;
+}
+
+@media only screen and (min-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  li,
+  h4 {
+    font-size: 1.2rem;
+  }
+
+  .save-recipe-button {
+    width: 8rem;
+    height: 2rem;
+    font-size: 0.8rem;
+  }
 }

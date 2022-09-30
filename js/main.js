@@ -17,6 +17,7 @@ var $menuButton = document.querySelector('.menu-button');
 
 var $modalPage = document.querySelector('.modal-background');
 var $modalCloseButton = document.querySelector('.modal-close-button');
+var loadingPage = document.querySelector('.loading-gif-container');
 
 $bodyContainer.addEventListener('click', cuisineResultPage);
 $bodyContainer.addEventListener('click', recipePage);
@@ -24,12 +25,15 @@ $flagsPageButton.addEventListener('click', showPage);
 $myRecipePageButton.addEventListener('click', showPage);
 $menuButton.addEventListener('click', modalMenu);
 $modalCloseButton.addEventListener('click', modalMenu);
+document.addEventListener('DOMContentLoaded', refreshPage);
 
 function getCuisineData(name) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.spoonacular.com/recipes/complexSearch?apiKey=b35d81708b394cbfa180077a26661fe8&cuisine=' + name);
+  xhr.open('GET', 'https://api.spoonacular.com/recipes/complexSearch?apiKey=8036dee798704bc5b7a94e9409fbfa26&cuisine=' + name);
+  loadingPage.className = 'loading-gif-container center';
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
+    loadingPage.className = 'loading-gif-container center hidden';
     var recipeListObject = xhr.response;
     for (var i = 0; i < recipeListObject.results.length; i++) {
       var recipeBox = cuisinePage.appendChild(document.createElement('div'));
@@ -66,9 +70,11 @@ function cuisineResultPage(event) {
 
 function getRecipeData(id) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=b35d81708b394cbfa180077a26661fe8');
+  xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=8036dee798704bc5b7a94e9409fbfa26');
+  loadingPage.className = 'loading-gif-container center';
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
+    loadingPage.className = 'loading-gif-container center hidden';
     var recipeObject = xhr.response;
 
     selectedRecipePage.setAttribute('data-id', id);
@@ -183,7 +189,6 @@ function myRecipeBoxPage() {
 
     var recipeImg = recipeButton.appendChild(document.createElement('img'));
     recipeImg.className = 'recipe-image';
-    // this class is where users will click to view the saved recipe
     recipeImg.setAttribute('src', data.recipes[i].image);
     recipeImg.setAttribute('data-id', data.recipes[i].recipeID);
 
@@ -199,6 +204,7 @@ function showPage(event) {
     data.view = event.target.getAttribute('data-view');
     modalMenu();
     dataView();
+    emptySavedRecipePage();
   }
 }
 
@@ -236,6 +242,7 @@ function refreshPage(event) {
     }
   }
   refreshPageContent();
+  emptySavedRecipePage();
 }
 
 function refreshPageContent() {
@@ -246,8 +253,6 @@ function refreshPageContent() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', refreshPage);
-
 var modalOpen = false;
 
 function modalMenu(event) {
@@ -257,5 +262,14 @@ function modalMenu(event) {
   } else {
     $modalPage.className = 'modal-background hidden';
     modalOpen = false;
+  }
+}
+
+var $emptySavedRecipePage = document.querySelector('.empty-saved-recipe-page');
+function emptySavedRecipePage() {
+  if (data.recipes.length === 0) {
+    $emptySavedRecipePage.className = 'empty-saved-recipe-page center';
+  } else {
+    $emptySavedRecipePage.className = 'empty-saved-recipe-page center hidden';
   }
 }

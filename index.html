@@ -19,8 +19,8 @@
 <body>
   <header>
     <div class="container">
-      <div class="row border-bottom">
-        <h1 >Feasting Eyes</h1>
+      <div class="row border-bottom-align">
+        <h1>Feasting Eyes</h1>
         <button class="menu-button">
           <i class="fa-solid fa-bars"></i>
         </button>
@@ -121,6 +121,9 @@
         </div>
         <div class="view hidden" data-view="savedRecipePage" id="saved-recipe-container">
           <div class="saved-recipe-container flex-wrap center">
+            <div class="empty-saved-recipe-page center hidden">
+              <h4>There are no saved recipes! <br> Start adding them now!</h4>
+            </div>
           </div>
         </div>
       </div>
@@ -139,6 +142,11 @@
       <div class="modal-selection">
         <button class="modal-button" data-view="savedRecipePage" id="myRecipePageButton">My Recipe Box</button>
       </div>
+    </div>
+  </div>
+  <div class="loading-gif-container center hidden">
+    <div>
+      <img src="images/Food-Loading-Gif.gif">
     </div>
   </div>
   <script src="js/data.js"></script>

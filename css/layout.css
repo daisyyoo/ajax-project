@@ -1,6 +1,7 @@
 .container {
-  max-width: 100vw;
-  padding: 0 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .row {
@@ -45,27 +46,29 @@
   align-items: center;
 }
 
-@media only screen and (min-width: 576px) {
-  .col-sm-half {
-    flex-basis: 50%;
-  }
+.col-sm-half {
+  flex-basis: 50%;
+}
 
-  .col-sm-full {
-    flex-basis: 100%;
-  }
+.col-sm-full {
+  flex-basis: 100%;
+}
 
-  button {
-    width: 80%;
-  }
+.col-three-qtr {
+  flex-basis: 75%;
+}
 
-  img {
-    width: 100%;
-  }
+button {
+  width: 80%;
+}
 
-  .recipe-img-direction {
-    flex-direction: column;
-    justify-content: center;
-  }
+img {
+  width: 100%;
+}
+
+.recipe-img-direction {
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media only screen and (min-width: 768px) {
