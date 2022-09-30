@@ -33,7 +33,7 @@
   flex-basis: 100%;
 }
 
-.selected-recipe-container {
+#selected-recipe-container {
   display: flex;
   justify-content: center;
   flex-direction: column;
