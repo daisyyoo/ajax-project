@@ -19,9 +19,11 @@
 <body>
   <header>
     <div class="container">
-      <div class="row border-bottom">
-        <h1 >Feasting Eyes</h1>
-        <i class="fa-solid fa-bars"></i>
+      <div class="row border-bottom-align">
+        <h1>Feasting Eyes</h1>
+        <button class="menu-button">
+          <i class="fa-solid fa-bars"></i>
+        </button>
       </div>
     </div>
   </header>
@@ -32,84 +34,121 @@
           <h2 class="header">What are you craving today?</h2>
         </div>
       </div>
-      <div class="body-container flex-wrap" data-view="flagsPage">
-        <div class="row center flex-wrap flags-page">
-          <div class="flag-button col-lg-third col-sm-half">
-            <button type="button" class="flag-button-border">
-              <img src="images/American Flag.png" data-id="American" class="flag">
-            </button>
-            <h4>American</h4>
+      <div class="body-container flex-wrap">
+        <div class="view" data-view="flagsPage" id="flags-page-container">
+          <div class="flags-page-container row center flex-wrap">
+            <div class="flag-button col-lg-third col-sm-half">
+              <button type="button" class="flag-button-border">
+                <img src="images/American Flag.png" data-id="American" class="flag">
+              </button>
+              <h4>American</h4>
+            </div>
+            <div class="flag-button col-lg-third col-sm-half">
+              <button type="button" class="flag-button-border">
+                <img src="images/British Flag.png" data-id="British" class="flag">
+              </button>
+              <h4>British</h4>
+            </div>
+            <div class="flag-button col-lg-third col-sm-half">
+              <button type="button" class="flag-button-border">
+                <img src="images/China Flag.png" data-id="Chinese" class="flag">
+              </button>
+              <h4>Chinese</h4>
+            </div>
+            <div class="flag-button col-lg-third col-sm-half">
+              <button type="button" class="flag-button-border">
+                <img src="images/France Flag.png" data-id="French" class="flag">
+              </button>
+              <h4>French</h4>
+            </div>
+            <div class="flag-button col-lg-third col-sm-half">
+              <button type="button" class="flag-button-border">
+                <img src="images/Germany Flag.png" data-id="German" class="flag">
+              </button>
+              <h4>German</h4>
+            </div>
+            <div class="flag-button col-lg-third col-sm-half">
+              <button type="button" class="flag-button-border">
+                <img src="images/India Flag.png" data-id="Indian" class="flag">
+              </button>
+              <h4>Indian</h4>
+            </div>
+            <div class="flag-button col-lg-third col-sm-half">
+              <button type="button" class="flag-button-border">
+                <img src="images/Ireland Flag.png" data-id="Irish" class="flag">
+              </button>
+              <h4>Irish</h4>
+            </div>
+            <div class="flag-button col-lg-third col-sm-half">
+              <button type="button" class="flag-button-border">
+                <img src="images/Italy Flag.png" data-id="Italian" class="flag">
+              </button>
+              <h4>Italian</h4>
+            </div>
+            <div class="flag-button col-lg-third col-sm-half">
+              <button type="button" class="flag-button-border">
+                <img src="images/Korea flag.png" data-id="Korean" class="flag">
+              </button>
+              <h4>Korean</h4>
+            </div>
+            <div class="flag-button col-lg-third col-sm-half">
+              <button type="button" class="flag-button-border">
+                <img src="images/Spain Flag.png" data-id="Spanish" class="flag">
+              </button>
+              <h4>Spanish</h4>
+            </div>
+            <div class="flag-button col-lg-third col-sm-half">
+              <button type="button" class="flag-button-border">
+                <img src="images/Thailand Flag.png" data-id="Thai" class="flag">
+              </button>
+              <h4>Thai</h4>
+            </div>
+            <div class="flag-button col-lg-third col-sm-half">
+              <button type="button" class="flag-button-border">
+                <img src="images/Vietnam Flag.png" data-id="Vietnamese" class="flag">
+              </button>
+              <h4>Vietnamese</h4>
+            </div>
           </div>
-          <div class="flag-button col-lg-third col-sm-half">
-            <button type="button" class="flag-button-border">
-              <img src="images/British Flag.png" data-id="British" class="flag">
-            </button>
-            <h4>British</h4>
-          </div>
-          <div class="flag-button col-lg-third col-sm-half">
-            <button type="button" class="flag-button-border">
-              <img src="images/China Flag.png" data-id="Chinese" class="flag">
-            </button>
-            <h4>Chinese</h4>
-          </div>
-          <div class="flag-button col-lg-third col-sm-half">
-            <button type="button" class="flag-button-border">
-              <img src="images/France Flag.png" data-id="French" class="flag">
-            </button>
-            <h4>French</h4>
-          </div>
-          <div class="flag-button col-lg-third col-sm-half">
-            <button type="button" class="flag-button-border">
-              <img src="images/Germany Flag.png" data-id="German" class="flag">
-            </button>
-            <h4>German</h4>
-          </div>
-          <div class="flag-button col-lg-third col-sm-half">
-            <button type="button" class="flag-button-border">
-              <img src="images/India Flag.png" data-id="Indian" class="flag">
-            </button>
-            <h4>Indian</h4>
-          </div>
-          <div class="flag-button col-lg-third col-sm-half">
-            <button type="button" class="flag-button-border">
-              <img src="images/Ireland Flag.png" data-id="Irish" class="flag">
-            </button>
-            <h4>Irish</h4>
-          </div>
-          <div class="flag-button col-lg-third col-sm-half">
-            <button type="button" class="flag-button-border">
-              <img src="images/Italy Flag.png" data-id="Italian" class="flag">
-            </button>
-            <h4>Italian</h4>
-          </div>
-          <div class="flag-button col-lg-third col-sm-half">
-            <button type="button" class="flag-button-border">
-              <img src="images/Korea flag.png" data-id="Korean" class="flag">
-            </button>
-            <h4>Korean</h4>
-          </div>
-          <div class="flag-button col-lg-third col-sm-half">
-            <button type="button" class="flag-button-border">
-              <img src="images/Spain Flag.png" data-id="Spanish" class="flag">
-            </button>
-            <h4>Spanish</h4>
-          </div>
-          <div class="flag-button col-lg-third col-sm-half">
-            <button type="button" class="flag-button-border">
-              <img src="images/Thailand Flag.png" data-id="Thai" class="flag">
-            </button>
-            <h4>Thai</h4>
-          </div>
-          <div class="flag-button col-lg-third col-sm-half">
-            <button type="button" class="flag-button-border">
-              <img src="images/Vietnam Flag.png" data-id="Vietnamese" class="flag">
-            </button>
-            <h4>Vietnamese</h4>
+        </div>
+        <div class="view hidden" data-view="cuisinePage" id="cuisine-container">
+          <form class="cuisine-page flex-wrap center">
+          </form>
+        </div>
+        <div class="view hidden" data-view="selectedRecipePage" id="selected-recipe-container">
+          <form class="selected-recipe-container">
+          </form>
+        </div>
+        <div class="view hidden" data-view="savedRecipePage" id="saved-recipe-container">
+          <div class="saved-recipe-container flex-wrap center">
+            <div class="empty-saved-recipe-page center hidden">
+              <h4>There are no saved recipes! <br> Start adding them now!</h4>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </main>
+  <div class="modal-background hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="modal-close-button">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-selection">
+        <button class="modal-button" data-view="flagsPage" id="flagsPageButton">Home Page</button>
+      </div>
+      <div class="modal-selection">
+        <button class="modal-button" data-view="savedRecipePage" id="myRecipePageButton">My Recipe Box</button>
+      </div>
+    </div>
+  </div>
+  <div class="loading-gif-container center hidden">
+    <div>
+      <img src="images/Food-Loading-Gif.gif">
+    </div>
+  </div>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
