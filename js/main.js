@@ -2,17 +2,23 @@
 
 var $bodyContainer = document.querySelector('.body-container');
 var $header = document.querySelector('.header');
+
 var $flagsPage = document.querySelector('#flags-page-container');
 var $cuisinePage = document.querySelector('#cuisine-container');
+var cuisinePage = document.querySelector('.cuisine-page');
 var $selectedRecipePage = document.querySelector('#selected-recipe-container');
+var selectedRecipePage = document.querySelector('.selected-recipe-container');
 var $savedRecipePage = document.querySelector('#saved-recipe-container');
+var savedRecipePage = document.querySelector('.saved-recipe-container');
+
 var $flagsPageButton = document.querySelector('#flagsPageButton');
 var $myRecipePageButton = document.querySelector('#myRecipePageButton');
 var $menuButton = document.querySelector('.menu-button');
+
 var $modalPage = document.querySelector('.modal-background');
 var $modalCloseButton = document.querySelector('.modal-close-button');
 
-$bodyContainer.addEventListener('click', cuisinePage);
+$bodyContainer.addEventListener('click', cuisineResultPage);
 $bodyContainer.addEventListener('click', recipePage);
 $flagsPageButton.addEventListener('click', showPage);
 $myRecipePageButton.addEventListener('click', showPage);
@@ -20,16 +26,13 @@ $menuButton.addEventListener('click', modalMenu);
 $modalCloseButton.addEventListener('click', modalMenu);
 
 function getCuisineData(name) {
-  $bodyContainer.setAttribute('data-view', 'cuisinePage');
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.spoonacular.com/recipes/complexSearch?apiKey=b35d81708b394cbfa180077a26661fe8&cuisine=' + name);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     var recipeListObject = xhr.response;
-    var cuisineContainer = document.querySelector('#cuisine-container');
-    cuisineContainer.className = 'cuisine-container flex-wrap center';
     for (var i = 0; i < recipeListObject.results.length; i++) {
-      var recipeBox = cuisineContainer.appendChild(document.createElement('div'));
+      var recipeBox = cuisinePage.appendChild(document.createElement('div'));
       recipeBox.className = 'recipe-box col-sm-full col-lg-third col-direction';
 
       var recipeButton = recipeBox.appendChild(document.createElement('button'));
@@ -48,28 +51,29 @@ function getCuisineData(name) {
   xhr.send();
 }
 
-function cuisinePage(event) {
+function cuisineResultPage(event) {
   if (event.target.matches('.flag')) {
     var name = event.target.getAttribute('data-id');
+    data.cuisine = name;
     $header.textContent = name + ' Dishes';
-    $flagsPage.className = 'hidden';
+    $flagsPage.className = 'view hidden';
+    $cuisinePage.className = 'view';
     getCuisineData(name);
-    data.view = $bodyContainer.getAttribute('data-view');
+    data.view = $cuisinePage.getAttribute('data-view');
+    data.header = $header.textContent;
   }
 }
 
 function getRecipeData(id) {
-  $bodyContainer.setAttribute('data-view', 'recipePage');
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=b35d81708b394cbfa180077a26661fe8');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     var recipeObject = xhr.response;
-    var selectedRecipeContainer = document.querySelector('#selected-recipe-container');
-    selectedRecipeContainer.className = 'selected-recipe-container';
-    selectedRecipeContainer.setAttribute('data-id', id);
 
-    var recipeImgRow = selectedRecipeContainer.appendChild(document.createElement('div'));
+    selectedRecipePage.setAttribute('data-id', id);
+
+    var recipeImgRow = selectedRecipePage.appendChild(document.createElement('div'));
     recipeImgRow.className = 'row recipe-img-direction img-ingredient-container';
 
     var recipeImage = recipeImgRow.appendChild(document.createElement('img'));
@@ -102,7 +106,7 @@ function getRecipeData(id) {
       ingredients.textContent = amount + ' ' + unit + ' ' + ingredientName;
     }
 
-    var instructionRow = selectedRecipeContainer.appendChild(document.createElement('div'));
+    var instructionRow = selectedRecipePage.appendChild(document.createElement('div'));
     instructionRow.className = 'row instruction-container col-direction';
 
     var instructionHeader = instructionRow.appendChild(document.createElement('div'));
@@ -120,40 +124,58 @@ function getRecipeData(id) {
       instruction.textContent = recipeObject.analyzedInstructions[0].steps[j].step;
       instruction.className = 'instruction';
     }
-    selectedRecipeContainer.addEventListener('submit', function (event) {
+    saveRecipeButton.addEventListener('click', function (event) {
       event.preventDefault();
-      var $selectedRecipePage = document.querySelector('.selected-recipe-container');
-      var recipeId = $selectedRecipePage.getAttribute('data-id');
+      var recipeId = selectedRecipePage.getAttribute('data-id');
       var recipeImage = document.querySelector('.selected-recipe-image');
-      var recipeTitle = document.querySelector('.header');
       var recipeInfo = {
         recipeID: recipeId,
         image: recipeImage.getAttribute('src'),
-        title: recipeTitle.textContent
+        title: $header.textContent
       };
       data.recipes.push(recipeInfo);
+      var newSavedRecipe = appendSavedRecipe(recipeInfo);
+      savedRecipePage.appendChild(newSavedRecipe);
     });
   });
   xhr.send();
+}
+
+function appendSavedRecipe(recipeInfo) {
+  var recipeBox = document.createElement('div');
+  recipeBox.className = 'recipe-box col-sm-full col-lg-third col-direction';
+
+  var recipeButton = recipeBox.appendChild(document.createElement('button'));
+  recipeButton.className = 'recipe-button';
+
+  var recipeImg = recipeButton.appendChild(document.createElement('img'));
+  recipeImg.className = 'recipe-image';
+  recipeImg.setAttribute('src', recipeInfo.image);
+  recipeImg.setAttribute('data-id', recipeInfo.recipeID);
+
+  var recipeTitle = recipeBox.appendChild(document.createElement('h4'));
+  recipeTitle.className = 'recipe-title center';
+  recipeTitle.textContent = recipeInfo.title;
+  return recipeBox;
 }
 
 function recipePage(event) {
   event.preventDefault();
   if (event.target.matches('.recipe-image')) {
     var id = event.target.getAttribute('data-id');
+    data.recipePageId = id;
     $header.textContent = event.target.closest('div').textContent;
-    var $cuisinePage = document.querySelector('.cuisine-container');
-    $cuisinePage.className = 'hidden';
+    $cuisinePage.className = 'view hidden';
+    $selectedRecipePage.className = 'view';
     getRecipeData(id);
-    data.view = $bodyContainer.getAttribute('data-view');
+    data.view = $selectedRecipePage.getAttribute('data-view');
+    data.header = $header.textContent;
   }
 }
 
-function myRecipeBoxPage(recipeID) {
-  $bodyContainer.setAttribute('data-view', 'savedRecipePage');
-
+function myRecipeBoxPage() {
   for (var i = 0; i < data.recipes.length; i++) {
-    var recipeBox = $savedRecipePage.appendChild(document.createElement('div'));
+    var recipeBox = savedRecipePage.appendChild(document.createElement('div'));
     recipeBox.className = 'recipe-box col-sm-full col-lg-third col-direction';
 
     var recipeButton = recipeBox.appendChild(document.createElement('button'));
@@ -183,22 +205,48 @@ function showPage(event) {
 function dataView(name) {
   if (data.view === 'flagsPage') {
     $header.textContent = 'What are you craving today?';
-    $flagsPage.className = 'flags-page-container row center flex-wrap';
-    $savedRecipePage.className = 'hidden';
-    $cuisinePage.className = 'hidden';
-    $selectedRecipePage.className = 'hidden';
-    $cuisinePage.replaceChildren();
-    $selectedRecipePage.replaceChildren();
+    data.header = $header.textContent;
+    $flagsPage.className = 'view';
+    $savedRecipePage.className = 'view hidden';
+    $cuisinePage.className = 'view hidden';
+    $selectedRecipePage.className = 'view hidden';
+    cuisinePage.replaceChildren();
+    selectedRecipePage.replaceChildren();
   } else if (data.view === 'savedRecipePage') {
     $header.textContent = 'My Recipe Box';
-    $savedRecipePage.className = 'saved-recipe-container flex-wrap center';
-    $flagsPage.className = 'hidden';
-    $cuisinePage.className = 'hidden';
-    $selectedRecipePage.className = 'hidden';
-    $cuisinePage.replaceChildren();
-    $selectedRecipePage.replaceChildren();
+    data.header = $header.textContent;
+    $savedRecipePage.className = 'view';
+    $flagsPage.className = 'view hidden';
+    $cuisinePage.className = 'view hidden';
+    $selectedRecipePage.className = 'view hidden';
+    cuisinePage.replaceChildren();
+    selectedRecipePage.replaceChildren();
   }
 }
+
+var $viewElements = document.querySelectorAll('.view');
+
+function refreshPage(event) {
+  for (var i = 0; i < $viewElements.length; i++) {
+    if (data.view === $viewElements[i].getAttribute('data-view')) {
+      $viewElements[i].className = 'view';
+      $header.textContent = data.header;
+    } else if (data.view !== $viewElements[i].getAttribute('data-view')) {
+      $viewElements[i].className = 'view hidden';
+    }
+  }
+  refreshPageContent();
+}
+
+function refreshPageContent() {
+  if (data.view === 'cuisinePage') {
+    getCuisineData(data.cuisine);
+  } else if (data.view === 'selectedRecipePage') {
+    getRecipeData(data.recipePageId);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', refreshPage);
 
 var modalOpen = false;
 
