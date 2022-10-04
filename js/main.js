@@ -98,7 +98,14 @@ function getRecipeData(id) {
 
     var saveRecipeButton = ingredientHeader.appendChild(document.createElement('button'));
     saveRecipeButton.className = 'save-recipe-button';
-    saveRecipeButton.textContent = 'SAVE RECIPE ';
+    for (var k = 0; k < data.recipes.length; k++) {
+      if (id === data.recipes[k].recipeID) {
+        saveRecipeButton.textContent = 'REMOVE RECIPE';
+        break;
+      } else {
+        saveRecipeButton.textContent = 'SAVE RECIPE';
+      }
+    }
 
     var bookmarkIcon = saveRecipeButton.appendChild(document.createElement('i'));
     bookmarkIcon.className = 'fa-solid fa-bookmark';
@@ -132,17 +139,33 @@ function getRecipeData(id) {
     }
     saveRecipeButton.addEventListener('click', function (event) {
       event.preventDefault();
-      var recipeId = selectedRecipePage.getAttribute('data-id');
-      var recipeImage = document.querySelector('.selected-recipe-image');
-      var recipeInfo = {
-        recipeID: recipeId,
-        image: recipeImage.getAttribute('src'),
-        title: $header.textContent
-      };
-      data.recipes.push(recipeInfo);
-      var newSavedRecipe = appendSavedRecipe(recipeInfo);
-      savedRecipePage.appendChild(newSavedRecipe);
-    });
+      if (saveRecipeButton.textContent === 'SAVE RECIPE') {
+        var recipeId = selectedRecipePage.getAttribute('data-id');
+        var recipeImage = document.querySelector('.selected-recipe-image');
+        var recipeInfo = {
+          recipeID: recipeId,
+          image: recipeImage.getAttribute('src'),
+          title: $header.textContent
+        };
+        data.recipes.push(recipeInfo);
+        var newSavedRecipe = appendSavedRecipe(recipeInfo);
+        savedRecipePage.appendChild(newSavedRecipe);
+      } else if (saveRecipeButton.textContent === 'REMOVE RECIPE') {
+        for (var l = 0; l < data.recipes.length; l++) {
+          if (id === data.recipes[l].recipeID) {
+            data.recipes.splice(l, 1);
+          }
+        }
+        var $savedRecipesList = document.querySelectorAll('.recipe-image');
+        for (var m = 0; m < $savedRecipesList.length; m++) {
+          if ($savedRecipesList[m].getAttribute('data-id') === id) {
+            var deletedRecipe = $savedRecipesList[m].closest('div');
+            deletedRecipe.remove();
+          }
+        }
+      }
+    }
+    );
   });
   xhr.send();
 }
@@ -172,6 +195,7 @@ function recipePage(event) {
     data.recipePageId = id;
     $header.textContent = event.target.closest('div').textContent;
     $cuisinePage.className = 'view hidden';
+    $savedRecipePage.className = 'view hidden';
     $selectedRecipePage.className = 'view';
     getRecipeData(id);
     data.view = $selectedRecipePage.getAttribute('data-view');
