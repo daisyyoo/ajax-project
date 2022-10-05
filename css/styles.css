@@ -116,11 +116,11 @@ li {
 .save-recipe-button {
   background-color: #f8d7c2;
   padding: 0;
-  width: 6rem;
-  height: 1.5rem;
+  width: 8.8rem;
+  height: 2rem;
   border: none;
   border-radius: 5px;
-  font-size: 0.55rem;
+  font-size: 0.7rem;
   color: rgb(114, 113, 113);
 }
 
@@ -188,6 +188,7 @@ li {
   padding: 1rem 0;
   border: none;
   font-size: 1rem;
+  color: black;
 }
 
 .modal-selection {
@@ -205,8 +206,8 @@ li {
   }
 
   .save-recipe-button {
-    width: 8rem;
-    height: 2rem;
+    width: 10rem;
+    height: 2.25rem;
     font-size: 0.8rem;
   }
 }

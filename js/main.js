@@ -18,6 +18,7 @@ var $menuButton = document.querySelector('.menu-button');
 var $modalPage = document.querySelector('.modal-background');
 var $modalCloseButton = document.querySelector('.modal-close-button');
 var loadingPage = document.querySelector('.loading-gif-container');
+var $errorPage = document.querySelector('.network-error-container');
 
 $bodyContainer.addEventListener('click', cuisineResultPage);
 $bodyContainer.addEventListener('click', recipePage);
@@ -29,10 +30,15 @@ document.addEventListener('DOMContentLoaded', refreshPage);
 
 function getCuisineData(name) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.spoonacular.com/recipes/complexSearch?apiKey=8036dee798704bc5b7a94e9409fbfa26&cuisine=' + name);
+  xhr.open('GET', 'https://api.spoonacular.com/recipes/complexSearch?apiKey=b35d81708b394cbfa180077a26661fe8&cuisine=' + name);
   loadingPage.className = 'loading-gif-container center';
   xhr.responseType = 'json';
+  xhr.addEventListener('error', function () {
+    $errorPage.className = 'network-error-container center';
+    $header.textContent = '';
+  });
   xhr.addEventListener('load', function () {
+    $errorPage.className = 'network-error-container center hidden';
     loadingPage.className = 'loading-gif-container center hidden';
     var recipeListObject = xhr.response;
     for (var i = 0; i < recipeListObject.results.length; i++) {
@@ -70,10 +76,15 @@ function cuisineResultPage(event) {
 
 function getRecipeData(id) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=8036dee798704bc5b7a94e9409fbfa26');
+  xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=b35d81708b394cbfa180077a26661fe8');
   loadingPage.className = 'loading-gif-container center';
   xhr.responseType = 'json';
+  xhr.addEventListener('error', function () {
+    $errorPage.className = 'network-error-container center';
+    $header.textContent = '';
+  });
   xhr.addEventListener('load', function () {
+    $errorPage.className = 'network-error-container center hidden';
     loadingPage.className = 'loading-gif-container center hidden';
     var recipeObject = xhr.response;
 
@@ -98,7 +109,17 @@ function getRecipeData(id) {
 
     var saveRecipeButton = ingredientHeader.appendChild(document.createElement('button'));
     saveRecipeButton.className = 'save-recipe-button';
-    saveRecipeButton.textContent = 'SAVE RECIPE ';
+    saveRecipeButton.textContent = 'SAVE RECIPE';
+    for (var k = 0; k < data.recipes.length; k++) {
+      if (id !== data.recipes[k].recipeID) {
+        saveRecipeButton.textContent = 'SAVE RECIPE';
+        saveRecipeButton.setAttribute('data-id', 'saveRecipe');
+      } else if (id === data.recipes[k].recipeID) {
+        saveRecipeButton.textContent = 'REMOVE RECIPE';
+        saveRecipeButton.setAttribute('data-id', 'removeRecipe');
+        break;
+      }
+    }
 
     var bookmarkIcon = saveRecipeButton.appendChild(document.createElement('i'));
     bookmarkIcon.className = 'fa-solid fa-bookmark';
@@ -132,17 +153,33 @@ function getRecipeData(id) {
     }
     saveRecipeButton.addEventListener('click', function (event) {
       event.preventDefault();
-      var recipeId = selectedRecipePage.getAttribute('data-id');
-      var recipeImage = document.querySelector('.selected-recipe-image');
-      var recipeInfo = {
-        recipeID: recipeId,
-        image: recipeImage.getAttribute('src'),
-        title: $header.textContent
-      };
-      data.recipes.push(recipeInfo);
-      var newSavedRecipe = appendSavedRecipe(recipeInfo);
-      savedRecipePage.appendChild(newSavedRecipe);
-    });
+      if (saveRecipeButton.getAttribute('data-id') === 'saveRecipe') {
+        var recipeId = selectedRecipePage.getAttribute('data-id');
+        var recipeImage = document.querySelector('.selected-recipe-image');
+        var recipeInfo = {
+          recipeID: recipeId,
+          image: recipeImage.getAttribute('src'),
+          title: $header.textContent
+        };
+        data.recipes.push(recipeInfo);
+        var newSavedRecipe = appendSavedRecipe(recipeInfo);
+        savedRecipePage.appendChild(newSavedRecipe);
+      } else if (saveRecipeButton.getAttribute('data-id') === 'removeRecipe') {
+        for (var l = 0; l < data.recipes.length; l++) {
+          if (id === data.recipes[l].recipeID) {
+            data.recipes.splice(l, 1);
+          }
+        }
+        var $savedRecipesList = document.querySelectorAll('.recipe-image');
+        for (var m = 0; m < $savedRecipesList.length; m++) {
+          if ($savedRecipesList[m].getAttribute('data-id') === id) {
+            var deletedRecipe = $savedRecipesList[m].closest('div');
+            deletedRecipe.remove();
+          }
+        }
+      }
+    }
+    );
   });
   xhr.send();
 }
@@ -172,6 +209,7 @@ function recipePage(event) {
     data.recipePageId = id;
     $header.textContent = event.target.closest('div').textContent;
     $cuisinePage.className = 'view hidden';
+    $savedRecipePage.className = 'view hidden';
     $selectedRecipePage.className = 'view';
     getRecipeData(id);
     data.view = $selectedRecipePage.getAttribute('data-view');
