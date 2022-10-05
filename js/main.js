@@ -18,6 +18,7 @@ var $menuButton = document.querySelector('.menu-button');
 var $modalPage = document.querySelector('.modal-background');
 var $modalCloseButton = document.querySelector('.modal-close-button');
 var loadingPage = document.querySelector('.loading-gif-container');
+var $errorPage = document.querySelector('.network-error-container');
 
 $bodyContainer.addEventListener('click', cuisineResultPage);
 $bodyContainer.addEventListener('click', recipePage);
@@ -32,7 +33,12 @@ function getCuisineData(name) {
   xhr.open('GET', 'https://api.spoonacular.com/recipes/complexSearch?apiKey=8036dee798704bc5b7a94e9409fbfa26&cuisine=' + name);
   loadingPage.className = 'loading-gif-container center';
   xhr.responseType = 'json';
+  xhr.addEventListener('error', function () {
+    $errorPage.className = 'network-error-container center';
+    $header.textContent = '';
+  });
   xhr.addEventListener('load', function () {
+    $errorPage.className = 'network-error-container center hidden';
     loadingPage.className = 'loading-gif-container center hidden';
     var recipeListObject = xhr.response;
     for (var i = 0; i < recipeListObject.results.length; i++) {
@@ -73,7 +79,12 @@ function getRecipeData(id) {
   xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=8036dee798704bc5b7a94e9409fbfa26');
   loadingPage.className = 'loading-gif-container center';
   xhr.responseType = 'json';
+  xhr.addEventListener('error', function () {
+    $errorPage.className = 'network-error-container center';
+    $header.textContent = '';
+  });
   xhr.addEventListener('load', function () {
+    $errorPage.className = 'network-error-container center hidden';
     loadingPage.className = 'loading-gif-container center hidden';
     var recipeObject = xhr.response;
 
