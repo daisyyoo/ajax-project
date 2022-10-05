@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', refreshPage);
 
 function getCuisineData(name) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.spoonacular.com/recipes/complexSearch?apiKey=8036dee798704bc5b7a94e9409fbfa26&cuisine=' + name);
+  xhr.open('GET', 'https://api.spoonacular.com/recipes/complexSearch?apiKey=b35d81708b394cbfa180077a26661fe8&cuisine=' + name);
   loadingPage.className = 'loading-gif-container center';
   xhr.responseType = 'json';
   xhr.addEventListener('error', function () {
@@ -76,7 +76,7 @@ function cuisineResultPage(event) {
 
 function getRecipeData(id) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=8036dee798704bc5b7a94e9409fbfa26');
+  xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=b35d81708b394cbfa180077a26661fe8');
   loadingPage.className = 'loading-gif-container center';
   xhr.responseType = 'json';
   xhr.addEventListener('error', function () {
