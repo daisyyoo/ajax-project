@@ -113,8 +113,10 @@ function getRecipeData(id) {
     for (var k = 0; k < data.recipes.length; k++) {
       if (id !== data.recipes[k].recipeID) {
         saveRecipeButton.textContent = 'SAVE RECIPE';
+        saveRecipeButton.setAttribute('data-id', 'saveRecipe');
       } else if (id === data.recipes[k].recipeID) {
         saveRecipeButton.textContent = 'REMOVE RECIPE';
+        saveRecipeButton.setAttribute('data-id', 'removeRecipe');
         break;
       }
     }
@@ -151,7 +153,7 @@ function getRecipeData(id) {
     }
     saveRecipeButton.addEventListener('click', function (event) {
       event.preventDefault();
-      if (saveRecipeButton.textContent === 'SAVE RECIPE') {
+      if (saveRecipeButton.getAttribute('data-id') === 'saveRecipe') {
         var recipeId = selectedRecipePage.getAttribute('data-id');
         var recipeImage = document.querySelector('.selected-recipe-image');
         var recipeInfo = {
@@ -162,7 +164,7 @@ function getRecipeData(id) {
         data.recipes.push(recipeInfo);
         var newSavedRecipe = appendSavedRecipe(recipeInfo);
         savedRecipePage.appendChild(newSavedRecipe);
-      } else if (saveRecipeButton.textContent === 'REMOVE RECIPE') {
+      } else if (saveRecipeButton.getAttribute('data-id') === 'removeRecipe') {
         for (var l = 0; l < data.recipes.length; l++) {
           if (id === data.recipes[l].recipeID) {
             data.recipes.splice(l, 1);
