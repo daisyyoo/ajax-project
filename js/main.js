@@ -110,6 +110,7 @@ function getRecipeData(id) {
     var saveRecipeButton = ingredientHeader.appendChild(document.createElement('button'));
     saveRecipeButton.className = 'save-recipe-button';
     saveRecipeButton.textContent = 'SAVE RECIPE';
+    saveRecipeButton.setAttribute('data-id', 'saveRecipe');
     for (var k = 0; k < data.recipes.length; k++) {
       if (id !== data.recipes[k].recipeID) {
         saveRecipeButton.textContent = 'SAVE RECIPE';
