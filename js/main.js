@@ -98,12 +98,13 @@ function getRecipeData(id) {
 
     var saveRecipeButton = ingredientHeader.appendChild(document.createElement('button'));
     saveRecipeButton.className = 'save-recipe-button';
+    saveRecipeButton.textContent = 'SAVE RECIPE';
     for (var k = 0; k < data.recipes.length; k++) {
-      if (id === data.recipes[k].recipeID) {
+      if (id !== data.recipes[k].recipeID) {
+        saveRecipeButton.textContent = 'SAVE RECIPE';
+      } else if (id === data.recipes[k].recipeID) {
         saveRecipeButton.textContent = 'REMOVE RECIPE';
         break;
-      } else {
-        saveRecipeButton.textContent = 'SAVE RECIPE';
       }
     }
 
