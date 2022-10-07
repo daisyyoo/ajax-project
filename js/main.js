@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', dataView);
 
 function getCuisineData(name) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.spoonacular.com/recipes/complexSearch?apiKey=8036dee798704bc5b7a94e9409fbfa26&cuisine=' + name + '&number=100');
+  xhr.open('GET', 'https://api.spoonacular.com/recipes/complexSearch?apiKey=2aa05f91ae23465e82b0916a05bb1e4a&cuisine=' + name + '&number=100');
   loadingPage.className = 'loading-gif-container center';
   xhr.responseType = 'json';
   xhr.addEventListener('error', function () {
@@ -98,7 +98,7 @@ function showMoreResults(event) {
 
 function getRecipeData(id) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=8036dee798704bc5b7a94e9409fbfa26');
+  xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=2aa05f91ae23465e82b0916a05bb1e4a');
   loadingPage.className = 'loading-gif-container center';
   xhr.responseType = 'json';
   xhr.addEventListener('error', function () {
@@ -188,6 +188,10 @@ function getRecipeData(id) {
       if (saveRecipeButton.getAttribute('data-id') === 'saveRecipe') {
         recipeStatusModal.className = 'recipe-status-modal center';
         recipeStatusModal.textContent = 'You have successfully saved this recipe!';
+        saveRecipeButton.textContent = 'REMOVE RECIPE';
+        var bookmarkIcon = saveRecipeButton.appendChild(document.createElement('i'));
+        bookmarkIcon.className = 'fa-solid fa-bookmark';
+        saveRecipeButton.setAttribute('data-id', 'removeRecipe');
         var recipeId = selectedRecipePage.getAttribute('data-id');
         var recipeImage = document.querySelector('.selected-recipe-image');
         var recipeInfo = {
@@ -201,6 +205,10 @@ function getRecipeData(id) {
       } else if (saveRecipeButton.getAttribute('data-id') === 'removeRecipe') {
         recipeStatusModal.className = 'recipe-status-modal center';
         recipeStatusModal.textContent = 'You have successfully removed this recipe!';
+        saveRecipeButton.textContent = 'SAVE RECIPE';
+        saveRecipeButton.setAttribute('data-id', 'saveRecipe');
+        bookmarkIcon = saveRecipeButton.appendChild(document.createElement('i'));
+        bookmarkIcon.className = 'fa-solid fa-bookmark';
         for (var l = 0; l < data.recipes.length; l++) {
           if (id === data.recipes[l].recipeID) {
             data.recipes.splice(l, 1);
