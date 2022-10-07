@@ -2,6 +2,7 @@
 
 var $bodyContainer = document.querySelector('.body-container');
 var $header = document.querySelector('.header');
+var $viewElements = document.querySelectorAll('.view');
 
 var $flagsPage = document.querySelector('#flags-page-container');
 var $cuisinePage = document.querySelector('#cuisine-container');
@@ -9,10 +10,12 @@ var cuisinePage = document.querySelector('.cuisine-page');
 var $selectedRecipePage = document.querySelector('#selected-recipe-container');
 var selectedRecipePage = document.querySelector('.selected-recipe-container');
 var savedRecipePage = document.querySelector('.saved-recipe-container');
+var $emptySavedRecipePage = document.querySelector('.empty-saved-recipe-page');
 
 var $flagsPageButton = document.querySelector('#flagsPageButton');
 var $myRecipePageButton = document.querySelector('#myRecipePageButton');
 var $menuButton = document.querySelector('.menu-button');
+var $goBackButton = document.querySelector('.go-back-button');
 
 var $modalPage = document.querySelector('.modal-background');
 var $modalCloseButton = document.querySelector('.modal-close-button');
@@ -25,6 +28,7 @@ $flagsPageButton.addEventListener('click', showPage);
 $myRecipePageButton.addEventListener('click', showPage);
 $menuButton.addEventListener('click', modalMenu);
 $modalCloseButton.addEventListener('click', modalMenu);
+$goBackButton.addEventListener('click', goBack);
 document.addEventListener('DOMContentLoaded', dataView);
 
 function getCuisineData(name) {
@@ -46,22 +50,27 @@ function getCuisineData(name) {
   xhr.send();
 }
 
-function cuisinePageDOMTree() {
+function cuisinePageDOMTree(number) {
   for (var i = 0; i < data.showResultsNumber; i++) {
-    var recipeBox = cuisinePage.appendChild(document.createElement('div'));
-    recipeBox.className = 'recipe-box col-sm-full col-lg-third col-direction';
+    if (i < data.searchResults.totalResults) {
+      $showMoreButton.className = 'show-more-button';
+      var recipeBox = cuisinePage.appendChild(document.createElement('div'));
+      recipeBox.className = 'recipe-box col-sm-full col-lg-third col-direction';
 
-    var recipeButton = recipeBox.appendChild(document.createElement('button'));
-    recipeButton.className = 'recipe-button';
+      var recipeButton = recipeBox.appendChild(document.createElement('button'));
+      recipeButton.className = 'recipe-button';
 
-    var recipeImg = recipeButton.appendChild(document.createElement('img'));
-    recipeImg.className = 'recipe-image';
-    recipeImg.setAttribute('src', data.searchResults.results[i].image);
-    recipeImg.setAttribute('data-id', data.searchResults.results[i].id);
+      var recipeImg = recipeButton.appendChild(document.createElement('img'));
+      recipeImg.className = 'recipe-image';
+      recipeImg.setAttribute('src', data.searchResults.results[i].image);
+      recipeImg.setAttribute('data-id', data.searchResults.results[i].id);
 
-    var recipeTitle = recipeBox.appendChild(document.createElement('h4'));
-    recipeTitle.className = 'recipe-title center';
-    recipeTitle.textContent = data.searchResults.results[i].title;
+      var recipeTitle = recipeBox.appendChild(document.createElement('h4'));
+      recipeTitle.className = 'recipe-title center';
+      recipeTitle.textContent = data.searchResults.results[i].title;
+    } else if (i > data.searchResults.totalResults) {
+      $showMoreButton.className = 'show-more-button hide-button';
+    }
   }
 }
 
@@ -79,10 +88,14 @@ function cuisineResultPage(event) {
   }
 }
 
-// function showMoreResults(event) {
-//   data.showResultsNumber += 10;
-//   cuisinePageDOMTree();
-// }
+var $showMoreButton = document.querySelector('.show-more-button');
+$showMoreButton.addEventListener('click', showMoreResults);
+
+function showMoreResults(event) {
+  data.showResultsNumber += 10;
+  cuisinePage.replaceChildren();
+  cuisinePageDOMTree(data.showResultsNumber);
+}
 
 function getRecipeData(id) {
   var xhr = new XMLHttpRequest();
@@ -96,6 +109,7 @@ function getRecipeData(id) {
   xhr.addEventListener('load', function () {
     $errorPage.className = 'network-error-container center hidden';
     loadingPage.className = 'loading-gif-container center hidden';
+    $showMoreButton.className = 'show-more-button hide-button';
     var recipeObject = xhr.response;
 
     selectedRecipePage.setAttribute('data-id', id);
@@ -135,7 +149,7 @@ function getRecipeData(id) {
       } else if (id === data.recipes[k].recipeID) {
         saveRecipeButton.textContent = 'REMOVE RECIPE';
         saveRecipeButton.setAttribute('data-id', 'removeRecipe');
-        $goBackButton.className = 'go-back-button-other';
+        $goBackButton.className = 'go-back-button hide-button';
         break;
       }
     }
@@ -277,16 +291,12 @@ function showPage(event) {
   }
 }
 
-var $viewElements = document.querySelectorAll('.view');
-
-var $goBackButton = document.querySelector('.go-back-button');
-$goBackButton.addEventListener('click', goBack);
-
 function goBack(event) {
   if (data.view === 'cuisinePage') {
     data.view = 'flagsPage';
     data.header = 'What are you craving today?';
     dataView();
+    data.showResultsNumber = 10;
   } else if (data.view === 'selectedRecipePage') {
     data.view = 'cuisinePage';
     data.header = data.cuisine + ' Dishes';
@@ -302,10 +312,11 @@ function dataView(event) {
       $viewElements[i].className = 'view';
       $header.textContent = data.header;
       if (data.view === 'flagsPage' || data.view === 'savedRecipePage') {
-        $goBackButton.className = 'go-back-button-other';
+        $goBackButton.className = 'go-back-button hide-button';
         cuisinePage.replaceChildren();
         selectedRecipePage.replaceChildren();
         data.searchResults = [];
+        data.showResultsNumber = 10;
       } else if (data.view === 'cuisinePage') {
         $goBackButton.className = 'go-back-button';
         cuisinePageDOMTree();
@@ -331,7 +342,6 @@ function modalMenu(event) {
   }
 }
 
-var $emptySavedRecipePage = document.querySelector('.empty-saved-recipe-page');
 function emptySavedRecipePage() {
   if (data.recipes.length === 0) {
     $emptySavedRecipePage.className = 'empty-saved-recipe-page center';

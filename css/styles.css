@@ -57,13 +57,9 @@ h4 {
   opacity: 0.8;
 }
 
-.go-back-button-other {
-  border: none;
+.hide-button {
   height: 2rem;
   width: 6rem;
-  color: rgb(114, 113, 113);
-  background-color: #55290d;
-  border-radius: 5px;
   opacity: 0;
 }
 
@@ -269,6 +265,11 @@ li {
 
   .go-back-button,
   .show-more-button {
+    height: 2rem;
+    width: 8rem;
+  }
+
+  .hide-button {
     height: 2rem;
     width: 8rem;
   }
