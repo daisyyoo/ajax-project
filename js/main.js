@@ -222,7 +222,7 @@ function getRecipeData(id) {
           }
         }
       }
-      setTimeout(hideRecipeStatusModal, 3000);
+      setTimeout(hideRecipeStatusModal, 1000);
     }
     );
   });
