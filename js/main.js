@@ -26,7 +26,7 @@ $flagsPageButton.addEventListener('click', showPage);
 $myRecipePageButton.addEventListener('click', showPage);
 $menuButton.addEventListener('click', modalMenu);
 $modalCloseButton.addEventListener('click', modalMenu);
-document.addEventListener('DOMContentLoaded', refreshPage);
+document.addEventListener('DOMContentLoaded', dataView);
 
 function getCuisineData(name) {
   var xhr = new XMLHttpRequest();
@@ -263,49 +263,26 @@ function showPage(event) {
   }
 }
 
-function dataView(name) {
-  if (data.view === 'flagsPage') {
-    $header.textContent = 'What are you craving today?';
-    data.header = $header.textContent;
-    $flagsPage.className = 'view';
-    $savedRecipePage.className = 'view hidden';
-    $cuisinePage.className = 'view hidden';
-    $selectedRecipePage.className = 'view hidden';
-    cuisinePage.replaceChildren();
-    selectedRecipePage.replaceChildren();
-  } else if (data.view === 'savedRecipePage') {
-    $header.textContent = 'My Recipe Box';
-    data.header = $header.textContent;
-    $savedRecipePage.className = 'view';
-    $flagsPage.className = 'view hidden';
-    $cuisinePage.className = 'view hidden';
-    $selectedRecipePage.className = 'view hidden';
-    cuisinePage.replaceChildren();
-    selectedRecipePage.replaceChildren();
-  }
-}
-
 var $viewElements = document.querySelectorAll('.view');
 
-function refreshPage(event) {
+function dataView(event) {
   for (var i = 0; i < $viewElements.length; i++) {
     if (data.view === $viewElements[i].getAttribute('data-view')) {
       $viewElements[i].className = 'view';
       $header.textContent = data.header;
+      if (data.view === 'flagsPage' || data.view === 'savedRecipePage') {
+        cuisinePage.replaceChildren();
+        selectedRecipePage.replaceChildren();
+      } else if (data.view === 'cuisinePage') {
+        getCuisineData(data.cuisine);
+      } else if (data.view === 'selectedRecipePage') {
+        getRecipeData(data.recipePageId);
+      }
     } else if (data.view !== $viewElements[i].getAttribute('data-view')) {
       $viewElements[i].className = 'view hidden';
     }
   }
-  refreshPageContent();
   emptySavedRecipePage();
-}
-
-function refreshPageContent() {
-  if (data.view === 'cuisinePage') {
-    getCuisineData(data.cuisine);
-  } else if (data.view === 'selectedRecipePage') {
-    getRecipeData(data.recipePageId);
-  }
 }
 
 var modalOpen = false;
