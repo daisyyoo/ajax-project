@@ -107,6 +107,13 @@ function getRecipeData(id) {
     ingredientLabel.className = 'ingredient-label';
     ingredientLabel.textContent = 'Ingredients';
 
+    var recipeStatusModalContainer = ingredientHeader.appendChild(document.createElement('div'));
+    recipeStatusModalContainer.className = 'recipe-status-modal-container';
+
+    var recipeStatusModal = recipeStatusModalContainer.appendChild(document.createElement('div'));
+    recipeStatusModal.className = 'recipe-status-modal center';
+    recipeStatusModal.textContent = 'You have successfully saved a recipe!';
+
     var saveRecipeButton = ingredientHeader.appendChild(document.createElement('button'));
     saveRecipeButton.className = 'save-recipe-button';
     saveRecipeButton.textContent = 'SAVE RECIPE';

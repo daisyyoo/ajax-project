@@ -195,6 +195,21 @@ li {
   margin: 0 2rem;
 }
 
+.recipe-status-modal-container {
+  position: relative;
+}
+
+.recipe-status-modal {
+  background-color: rgb(250, 205, 205);
+  color: rgb(59, 59, 59);
+  font-size: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid rgb(190, 190, 190);
+  position: absolute;
+  width: 150px;
+}
+
 @media only screen and (min-width: 768px) {
   h1 {
     font-size: 2rem;
@@ -209,5 +224,10 @@ li {
     width: 10rem;
     height: 2.25rem;
     font-size: 0.8rem;
+  }
+
+  .recipe-status-modal {
+    font-size: 1rem;
+    width: 200px;
   }
 }
