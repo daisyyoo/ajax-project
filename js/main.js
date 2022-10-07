@@ -111,8 +111,7 @@ function getRecipeData(id) {
     recipeStatusModalContainer.className = 'recipe-status-modal-container';
 
     var recipeStatusModal = recipeStatusModalContainer.appendChild(document.createElement('div'));
-    recipeStatusModal.className = 'recipe-status-modal center';
-    recipeStatusModal.textContent = 'You have successfully saved a recipe!';
+    recipeStatusModal.className = 'recipe-status-modal center hidden';
 
     var saveRecipeButton = ingredientHeader.appendChild(document.createElement('button'));
     saveRecipeButton.className = 'save-recipe-button';
@@ -162,6 +161,8 @@ function getRecipeData(id) {
     saveRecipeButton.addEventListener('click', function (event) {
       event.preventDefault();
       if (saveRecipeButton.getAttribute('data-id') === 'saveRecipe') {
+        recipeStatusModal.className = 'recipe-status-modal center';
+        recipeStatusModal.textContent = 'You have successfully saved this recipe!';
         var recipeId = selectedRecipePage.getAttribute('data-id');
         var recipeImage = document.querySelector('.selected-recipe-image');
         var recipeInfo = {
@@ -173,6 +174,8 @@ function getRecipeData(id) {
         var newSavedRecipe = appendSavedRecipe(recipeInfo);
         savedRecipePage.appendChild(newSavedRecipe);
       } else if (saveRecipeButton.getAttribute('data-id') === 'removeRecipe') {
+        recipeStatusModal.className = 'recipe-status-modal center';
+        recipeStatusModal.textContent = 'You have successfully removed this recipe!';
         for (var l = 0; l < data.recipes.length; l++) {
           if (id === data.recipes[l].recipeID) {
             data.recipes.splice(l, 1);
@@ -186,10 +189,16 @@ function getRecipeData(id) {
           }
         }
       }
+      setTimeout(hideRecipeStatusModal, 1500);
     }
     );
   });
   xhr.send();
+}
+
+function hideRecipeStatusModal() {
+  var $recipeStatusModal = document.querySelector('.recipe-status-modal');
+  $recipeStatusModal.className = 'recipe-status-modal center hidden';
 }
 
 function appendSavedRecipe(recipeInfo) {
