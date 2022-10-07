@@ -3,12 +3,10 @@
 var $bodyContainer = document.querySelector('.body-container');
 var $header = document.querySelector('.header');
 
-var $flagsPage = document.querySelector('#flags-page-container');
 var $cuisinePage = document.querySelector('#cuisine-container');
 var cuisinePage = document.querySelector('.cuisine-page');
 var $selectedRecipePage = document.querySelector('#selected-recipe-container');
 var selectedRecipePage = document.querySelector('.selected-recipe-container');
-var $savedRecipePage = document.querySelector('#saved-recipe-container');
 var savedRecipePage = document.querySelector('.saved-recipe-container');
 
 var $flagsPageButton = document.querySelector('#flagsPageButton');
@@ -66,11 +64,9 @@ function cuisineResultPage(event) {
     var name = event.target.getAttribute('data-id');
     data.cuisine = name;
     $header.textContent = name + ' Dishes';
-    $flagsPage.className = 'view hidden';
-    $cuisinePage.className = 'view';
-    getCuisineData(name);
     data.view = $cuisinePage.getAttribute('data-view');
     data.header = $header.textContent;
+    dataView();
   }
 }
 
@@ -225,12 +221,9 @@ function recipePage(event) {
     var id = event.target.getAttribute('data-id');
     data.recipePageId = id;
     $header.textContent = event.target.closest('div').textContent;
-    $cuisinePage.className = 'view hidden';
-    $savedRecipePage.className = 'view hidden';
-    $selectedRecipePage.className = 'view';
-    getRecipeData(id);
     data.view = $selectedRecipePage.getAttribute('data-view');
     data.header = $header.textContent;
+    dataView();
   }
 }
 
@@ -257,6 +250,11 @@ document.addEventListener('DOMContentLoaded', myRecipeBoxPage);
 function showPage(event) {
   if (event.target.getAttribute('data-view') !== data.view) {
     data.view = event.target.getAttribute('data-view');
+    if (data.view === 'flagsPage') {
+      data.header = 'What are you craving today?';
+    } else if (data.view === 'savedRecipePage') {
+      data.header = 'My Recipe Box';
+    }
     modalMenu();
     dataView();
     emptySavedRecipePage();
