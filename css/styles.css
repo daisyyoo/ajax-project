@@ -221,22 +221,15 @@ li {
   border: 1px solid rgb(190, 190, 190);
   position: absolute;
   width: 150px;
-
-  /* animation-name: fadeout;
-  animation-delay: 3s;
-  animation-duration: 3s; */
+  opacity: 1;
+  visibility: visible;
 }
 
-/* @keyframes fadeout {
-  from {
-    opacity: 0.8;
-  }
-
-  to {
-    opacity: 0;
-    display: none;
-  }
-} */
+.fade-out {
+  transition: all 1s linear;
+  opacity: 0;
+  visibility: hidden;
+}
 
 @media only screen and (min-width: 400px) {
   .modal-header {

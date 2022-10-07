@@ -231,7 +231,7 @@ function getRecipeData(id) {
 
 function hideRecipeStatusModal() {
   var $recipeStatusModal = document.querySelector('.recipe-status-modal');
-  $recipeStatusModal.className = 'recipe-status-modal center hidden';
+  $recipeStatusModal.className = 'recipe-status-modal center fade-out';
 }
 
 function appendSavedRecipe(recipeInfo) {
