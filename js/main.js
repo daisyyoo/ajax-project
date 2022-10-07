@@ -189,7 +189,7 @@ function getRecipeData(id) {
           }
         }
       }
-      setTimeout(hideRecipeStatusModal, 1500);
+      setTimeout(hideRecipeStatusModal, 3000);
     }
     );
   });
