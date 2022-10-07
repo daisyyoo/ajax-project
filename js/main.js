@@ -73,11 +73,12 @@ function cuisineResultPage(event) {
     data.view = $cuisinePage.getAttribute('data-view');
     data.header = $header.textContent;
     getCuisineData(name);
+    $goBackButton.className = 'go-back-button';
     $flagsPage.className = 'view hidden';
     $cuisinePage.className = 'view';
   }
 }
-// this will be for show more button
+
 // function showMoreResults(event) {
 //   data.showResultsNumber += 10;
 //   cuisinePageDOMTree();
@@ -130,9 +131,11 @@ function getRecipeData(id) {
       if (id !== data.recipes[k].recipeID) {
         saveRecipeButton.textContent = 'SAVE RECIPE';
         saveRecipeButton.setAttribute('data-id', 'saveRecipe');
+        $goBackButton.className = 'go-back-button';
       } else if (id === data.recipes[k].recipeID) {
         saveRecipeButton.textContent = 'REMOVE RECIPE';
         saveRecipeButton.setAttribute('data-id', 'removeRecipe');
+        $goBackButton.className = 'go-back-button-other';
         break;
       }
     }
@@ -276,16 +279,35 @@ function showPage(event) {
 
 var $viewElements = document.querySelectorAll('.view');
 
+var $goBackButton = document.querySelector('.go-back-button');
+$goBackButton.addEventListener('click', goBack);
+
+function goBack(event) {
+  if (data.view === 'cuisinePage') {
+    data.view = 'flagsPage';
+    data.header = 'What are you craving today?';
+    dataView();
+  } else if (data.view === 'selectedRecipePage') {
+    data.view = 'cuisinePage';
+    data.header = data.cuisine + ' Dishes';
+    cuisinePage.replaceChildren();
+    selectedRecipePage.replaceChildren();
+    dataView();
+  }
+}
+
 function dataView(event) {
   for (var i = 0; i < $viewElements.length; i++) {
     if (data.view === $viewElements[i].getAttribute('data-view')) {
       $viewElements[i].className = 'view';
       $header.textContent = data.header;
       if (data.view === 'flagsPage' || data.view === 'savedRecipePage') {
+        $goBackButton.className = 'go-back-button-other';
         cuisinePage.replaceChildren();
         selectedRecipePage.replaceChildren();
         data.searchResults = [];
       } else if (data.view === 'cuisinePage') {
+        $goBackButton.className = 'go-back-button';
         cuisinePageDOMTree();
       } else if (data.view === 'selectedRecipePage') {
         getRecipeData(data.recipePageId);

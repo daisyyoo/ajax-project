@@ -57,6 +57,16 @@ h4 {
   opacity: 0.8;
 }
 
+.go-back-button-other {
+  border: none;
+  height: 2rem;
+  width: 6rem;
+  color: rgb(114, 113, 113);
+  background-color: #55290d;
+  border-radius: 5px;
+  opacity: 0;
+}
+
 .recipe-box {
   margin: 0;
   margin-bottom: 1.5rem;
