@@ -151,15 +151,11 @@ li {
 .modal-close-button {
   background-color: #fffbf5;
   border: none;
+  padding: 0;
   width: 2rem;
 }
 
-.modal-close-button {
-  width: 3rem;
-}
-
 .fa-xmark {
-  margin: 0.5rem;
   font-size: 2rem;
 }
 
@@ -196,7 +192,7 @@ li {
 .modal-header {
   display: flex;
   justify-content: flex-end;
-  padding: 0.25rem 1.3rem;
+  padding: 1.2rem 1rem;
 }
 
 .modal-button {
@@ -242,6 +238,12 @@ li {
   }
 } */
 
+@media only screen and (min-width: 400px) {
+  .modal-header {
+    padding: 0.5rem 1rem;
+  }
+}
+
 @media only screen and (min-width: 768px) {
   h1 {
     font-size: 2rem;
@@ -250,6 +252,10 @@ li {
   li,
   h4 {
     font-size: 1.2rem;
+  }
+
+  .modal-header {
+    padding: 0.8rem 1rem;
   }
 
   .save-recipe-button {

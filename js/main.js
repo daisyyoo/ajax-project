@@ -16,6 +16,7 @@ var $flagsPageButton = document.querySelector('#flagsPageButton');
 var $myRecipePageButton = document.querySelector('#myRecipePageButton');
 var $menuButton = document.querySelector('.menu-button');
 var $goBackButton = document.querySelector('.go-back-button');
+var $showMoreButton = document.querySelector('.show-more-button');
 
 var $modalPage = document.querySelector('.modal-background');
 var $modalCloseButton = document.querySelector('.modal-close-button');
@@ -29,6 +30,7 @@ $myRecipePageButton.addEventListener('click', showPage);
 $menuButton.addEventListener('click', modalMenu);
 $modalCloseButton.addEventListener('click', modalMenu);
 $goBackButton.addEventListener('click', goBack);
+$showMoreButton.addEventListener('click', showMoreResults);
 document.addEventListener('DOMContentLoaded', dataView);
 
 function getCuisineData(name) {
@@ -87,9 +89,6 @@ function cuisineResultPage(event) {
     $cuisinePage.className = 'view';
   }
 }
-
-var $showMoreButton = document.querySelector('.show-more-button');
-$showMoreButton.addEventListener('click', showMoreResults);
 
 function showMoreResults(event) {
   data.showResultsNumber += 10;
