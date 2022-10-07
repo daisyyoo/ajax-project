@@ -3,6 +3,7 @@
 var $bodyContainer = document.querySelector('.body-container');
 var $header = document.querySelector('.header');
 
+var $flagsPage = document.querySelector('#flags-page-container');
 var $cuisinePage = document.querySelector('#cuisine-container');
 var cuisinePage = document.querySelector('.cuisine-page');
 var $selectedRecipePage = document.querySelector('#selected-recipe-container');
@@ -28,7 +29,7 @@ document.addEventListener('DOMContentLoaded', dataView);
 
 function getCuisineData(name) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.spoonacular.com/recipes/complexSearch?apiKey=b35d81708b394cbfa180077a26661fe8&cuisine=' + name);
+  xhr.open('GET', 'https://api.spoonacular.com/recipes/complexSearch?apiKey=8036dee798704bc5b7a94e9409fbfa26&cuisine=' + name + '&number=100');
   loadingPage.className = 'loading-gif-container center';
   xhr.responseType = 'json';
   xhr.addEventListener('error', function () {
@@ -39,24 +40,29 @@ function getCuisineData(name) {
     $errorPage.className = 'network-error-container center hidden';
     loadingPage.className = 'loading-gif-container center hidden';
     var recipeListObject = xhr.response;
-    for (var i = 0; i < recipeListObject.results.length; i++) {
-      var recipeBox = cuisinePage.appendChild(document.createElement('div'));
-      recipeBox.className = 'recipe-box col-sm-full col-lg-third col-direction';
-
-      var recipeButton = recipeBox.appendChild(document.createElement('button'));
-      recipeButton.className = 'recipe-button';
-
-      var recipeImg = recipeButton.appendChild(document.createElement('img'));
-      recipeImg.className = 'recipe-image';
-      recipeImg.setAttribute('src', recipeListObject.results[i].image);
-      recipeImg.setAttribute('data-id', recipeListObject.results[i].id);
-
-      var recipeTitle = recipeBox.appendChild(document.createElement('h4'));
-      recipeTitle.className = 'recipe-title center';
-      recipeTitle.textContent = recipeListObject.results[i].title;
-    }
+    data.searchResults = recipeListObject;
+    cuisinePageDOMTree();
   });
   xhr.send();
+}
+
+function cuisinePageDOMTree() {
+  for (var i = 0; i < data.showResultsNumber; i++) {
+    var recipeBox = cuisinePage.appendChild(document.createElement('div'));
+    recipeBox.className = 'recipe-box col-sm-full col-lg-third col-direction';
+
+    var recipeButton = recipeBox.appendChild(document.createElement('button'));
+    recipeButton.className = 'recipe-button';
+
+    var recipeImg = recipeButton.appendChild(document.createElement('img'));
+    recipeImg.className = 'recipe-image';
+    recipeImg.setAttribute('src', data.searchResults.results[i].image);
+    recipeImg.setAttribute('data-id', data.searchResults.results[i].id);
+
+    var recipeTitle = recipeBox.appendChild(document.createElement('h4'));
+    recipeTitle.className = 'recipe-title center';
+    recipeTitle.textContent = data.searchResults.results[i].title;
+  }
 }
 
 function cuisineResultPage(event) {
@@ -66,13 +72,20 @@ function cuisineResultPage(event) {
     $header.textContent = name + ' Dishes';
     data.view = $cuisinePage.getAttribute('data-view');
     data.header = $header.textContent;
-    dataView();
+    getCuisineData(name);
+    $flagsPage.className = 'view hidden';
+    $cuisinePage.className = 'view';
   }
 }
+// this will be for show more button
+// function showMoreResults(event) {
+//   data.showResultsNumber += 10;
+//   cuisinePageDOMTree();
+// }
 
 function getRecipeData(id) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=b35d81708b394cbfa180077a26661fe8');
+  xhr.open('GET', 'https://api.spoonacular.com/recipes/' + id + '/information?apiKey=8036dee798704bc5b7a94e9409fbfa26');
   loadingPage.className = 'loading-gif-container center';
   xhr.responseType = 'json';
   xhr.addEventListener('error', function () {
@@ -271,8 +284,9 @@ function dataView(event) {
       if (data.view === 'flagsPage' || data.view === 'savedRecipePage') {
         cuisinePage.replaceChildren();
         selectedRecipePage.replaceChildren();
+        data.searchResults = [];
       } else if (data.view === 'cuisinePage') {
-        getCuisineData(data.cuisine);
+        cuisinePageDOMTree();
       } else if (data.view === 'selectedRecipePage') {
         getRecipeData(data.recipePageId);
       }
