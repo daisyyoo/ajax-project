@@ -3,6 +3,7 @@
 var $bodyContainer = document.querySelector('.body-container');
 var $header = document.querySelector('.header');
 var $viewElements = document.querySelectorAll('.view');
+var modalOpen = false;
 
 var $flagsPage = document.querySelector('#flags-page-container');
 var $cuisinePage = document.querySelector('#cuisine-container');
@@ -32,6 +33,7 @@ $modalCloseButton.addEventListener('click', modalMenu);
 $goBackButton.addEventListener('click', goBack);
 $showMoreButton.addEventListener('click', showMoreResults);
 document.addEventListener('DOMContentLoaded', dataView);
+document.addEventListener('DOMContentLoaded', myRecipeBoxPage);
 
 function getCuisineData(name) {
   var xhr = new XMLHttpRequest();
@@ -64,7 +66,11 @@ function cuisinePageDOMTree(number) {
 
       var recipeImg = recipeButton.appendChild(document.createElement('img'));
       recipeImg.className = 'recipe-image';
-      recipeImg.setAttribute('src', data.searchResults.results[i].image);
+      if (data.searchResults.results[i].image === 'https://spoonacular.com/recipeImages/157991-312x231.jpg') {
+        recipeImg.setAttribute('src', '../images/sad-burger-pic-1.png');
+      } else {
+        recipeImg.setAttribute('src', data.searchResults.results[i].image);
+      }
       recipeImg.setAttribute('data-id', data.searchResults.results[i].id);
 
       var recipeTitle = recipeBox.appendChild(document.createElement('h4'));
@@ -117,7 +123,11 @@ function getRecipeData(id) {
     recipeImgRow.className = 'row recipe-img-direction img-ingredient-container';
 
     var recipeImage = recipeImgRow.appendChild(document.createElement('img'));
-    recipeImage.setAttribute('src', recipeObject.image);
+    if (recipeObject.image === 'https://spoonacular.com/recipeImages/157991-556x370.jpg') {
+      recipeImage.setAttribute('src', '../images/sad-burger-pic-1.png');
+    } else {
+      recipeImage.setAttribute('src', recipeObject.image);
+    }
     recipeImage.className = 'selected-recipe-image col-lg-half col-sm-full';
 
     var ingredientListContainer = recipeImgRow.appendChild(document.createElement('div'));
@@ -199,7 +209,7 @@ function getRecipeData(id) {
           title: $header.textContent
         };
         data.recipes.push(recipeInfo);
-        var newSavedRecipe = appendSavedRecipe(recipeInfo);
+        var newSavedRecipe = renderSavedRecipe(recipeInfo);
         savedRecipePage.appendChild(newSavedRecipe);
       } else if (saveRecipeButton.getAttribute('data-id') === 'removeRecipe') {
         recipeStatusModal.className = 'recipe-status-modal center';
@@ -233,7 +243,7 @@ function hideRecipeStatusModal() {
   $recipeStatusModal.className = 'recipe-status-modal center fade-out';
 }
 
-function appendSavedRecipe(recipeInfo) {
+function renderSavedRecipe(recipeInfo) {
   var recipeBox = document.createElement('div');
   recipeBox.className = 'recipe-box col-sm-full col-lg-third col-direction';
 
@@ -280,7 +290,6 @@ function myRecipeBoxPage() {
     recipeTitle.textContent = data.recipes[i].title;
   }
 }
-document.addEventListener('DOMContentLoaded', myRecipeBoxPage);
 
 function showPage(event) {
   if (event.target.getAttribute('data-view') !== data.view) {
@@ -334,8 +343,6 @@ function dataView(event) {
   }
   emptySavedRecipePage();
 }
-
-var modalOpen = false;
 
 function modalMenu(event) {
   if (modalOpen === false) {
