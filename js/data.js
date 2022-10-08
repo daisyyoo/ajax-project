@@ -5,7 +5,7 @@ var data = {
   recipePageId: '',
   header: 'What are you craving today?',
   searchResults: [],
-  showResultsNumber: 10,
+  showResultsNumber: 12,
   recipes: []
 };
 

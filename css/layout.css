@@ -21,7 +21,14 @@
 
 .header-container {
   width: 100%;
-  justify-content: space-between;
+  justify-content: center;
+}
+
+.footer-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
 }
 
 .col-direction {

@@ -91,7 +91,7 @@ function cuisineResultPage(event) {
 }
 
 function showMoreResults(event) {
-  data.showResultsNumber += 10;
+  data.showResultsNumber += 9;
   cuisinePage.replaceChildren();
   cuisinePageDOMTree(data.showResultsNumber);
 }
@@ -184,7 +184,6 @@ function getRecipeData(id) {
       instruction.className = 'instruction';
     }
     saveRecipeButton.addEventListener('click', function (event) {
-      event.preventDefault();
       if (saveRecipeButton.getAttribute('data-id') === 'saveRecipe') {
         recipeStatusModal.className = 'recipe-status-modal center';
         recipeStatusModal.textContent = 'You have successfully saved this recipe!';
@@ -253,7 +252,6 @@ function appendSavedRecipe(recipeInfo) {
 }
 
 function recipePage(event) {
-  event.preventDefault();
   if (event.target.matches('.recipe-image')) {
     var id = event.target.getAttribute('data-id');
     data.recipePageId = id;
@@ -303,7 +301,7 @@ function goBack(event) {
     data.view = 'flagsPage';
     data.header = 'What are you craving today?';
     dataView();
-    data.showResultsNumber = 10;
+    data.showResultsNumber = 12;
   } else if (data.view === 'selectedRecipePage') {
     data.view = 'cuisinePage';
     data.header = data.cuisine + ' Dishes';
@@ -323,7 +321,7 @@ function dataView(event) {
         cuisinePage.replaceChildren();
         selectedRecipePage.replaceChildren();
         data.searchResults = [];
-        data.showResultsNumber = 10;
+        data.showResultsNumber = 12;
       } else if (data.view === 'cuisinePage') {
         $goBackButton.className = 'go-back-button';
         cuisinePageDOMTree();
