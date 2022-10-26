@@ -4,6 +4,8 @@ var data = {
   cuisine: '',
   recipePageId: '',
   header: 'What are you craving today?',
+  searchResults: [],
+  showResultsNumber: 12,
   recipes: []
 };
 

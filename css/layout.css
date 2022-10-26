@@ -19,6 +19,18 @@
   align-items: center;
 }
 
+.header-container {
+  width: 100%;
+  justify-content: center;
+}
+
+.footer-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
 .col-direction {
   flex-direction: column;
 }
@@ -49,6 +61,11 @@
   justify-content: space-between;
   align-items: center;
 }
+
+/* .recipe-box {
+  display: flex;
+  align-items: flex-end;
+} */
 
 .col-sm-half {
   flex-basis: 50%;
