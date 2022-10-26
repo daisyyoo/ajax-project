@@ -81,7 +81,8 @@ h4 {
   margin: 0;
   margin-bottom: 1.5rem;
   border-bottom: 1px solid rgb(163, 161, 161);
-  align-items: flex-start;
+
+  /* align-items: flex-end; */
 }
 
 .recipe-button {

@@ -62,6 +62,11 @@
   align-items: center;
 }
 
+/* .recipe-box {
+  display: flex;
+  align-items: flex-end;
+} */
+
 .col-sm-half {
   flex-basis: 50%;
 }

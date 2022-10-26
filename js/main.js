@@ -170,7 +170,11 @@ function getRecipeData(id) {
     for (var i = 0; i < recipeObject.extendedIngredients.length; i++) {
       var ingredients = ingredientList.appendChild(document.createElement('li'));
       var ingredientName = recipeObject.extendedIngredients[i].name;
-      var amount = recipeObject.extendedIngredients[i].amount;
+      if (Number.isInteger(recipeObject.extendedIngredients[i].amount)) {
+        var amount = recipeObject.extendedIngredients[i].amount;
+      } else {
+        amount = recipeObject.extendedIngredients[i].amount.toFixed(2);
+      }
       var unit = recipeObject.extendedIngredients[i].unit;
       ingredients.textContent = amount + ' ' + unit + ' ' + ingredientName;
     }
@@ -211,13 +215,15 @@ function getRecipeData(id) {
         data.recipes.push(recipeInfo);
         var newSavedRecipe = renderSavedRecipe(recipeInfo);
         savedRecipePage.appendChild(newSavedRecipe);
+        data.view = 'flagsPage';
+        data.header = 'What are you craving today?';
       } else if (saveRecipeButton.getAttribute('data-id') === 'removeRecipe') {
         recipeStatusModal.className = 'recipe-status-modal center';
         recipeStatusModal.textContent = 'You have successfully removed this recipe!';
         saveRecipeButton.textContent = 'SAVE RECIPE';
-        saveRecipeButton.setAttribute('data-id', 'saveRecipe');
         bookmarkIcon = saveRecipeButton.appendChild(document.createElement('i'));
         bookmarkIcon.className = 'fa-solid fa-bookmark';
+        saveRecipeButton.setAttribute('data-id', 'saveRecipe');
         for (var l = 0; l < data.recipes.length; l++) {
           if (id === data.recipes[l].recipeID) {
             data.recipes.splice(l, 1);
@@ -230,6 +236,7 @@ function getRecipeData(id) {
             deletedRecipe.remove();
           }
         }
+
       }
       setTimeout(hideRecipeStatusModal, 1000);
     }
@@ -335,6 +342,7 @@ function dataView(event) {
         $goBackButton.className = 'go-back-button';
         cuisinePageDOMTree();
       } else if (data.view === 'selectedRecipePage') {
+        $goBackButton.className = 'go-back-button';
         getRecipeData(data.recipePageId);
       }
     } else if (data.view !== $viewElements[i].getAttribute('data-view')) {
