@@ -61,9 +61,13 @@ h4 {
   opacity: 0.6;
 }
 
-.go-back-button {
-  position: absolute;
-  left: 1px;
+.header {
+  margin-bottom: 0;
+}
+
+.button-container {
+  align-self: center;
+  margin: 20px 0;
 }
 
 .go-back-button:active,
@@ -79,8 +83,6 @@ h4 {
   margin: 0;
   margin-bottom: 1.5rem;
   border-bottom: 1px solid rgb(163, 161, 161);
-
-  /* align-items: flex-end; */
 }
 
 .recipe-button {
@@ -247,6 +249,11 @@ li {
 @media only screen and (min-width: 400px) {
   .modal-header {
     padding: 0.5rem 1rem;
+  }
+
+  .button-container {
+    align-self: flex-start;
+    margin: 20px 0;
   }
 }
 
