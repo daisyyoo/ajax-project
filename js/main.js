@@ -236,7 +236,8 @@ function getRecipeData(id) {
             deletedRecipe.remove();
           }
         }
-
+        data.view = 'flagsPage';
+        data.header = 'What are you craving today?';
       }
       setTimeout(hideRecipeStatusModal, 1000);
     }
